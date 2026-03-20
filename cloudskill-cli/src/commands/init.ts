@@ -1,21 +1,15 @@
 import chalk from 'chalk';
 import ora from 'ora';
 import prompts from 'prompts';
-import { existsSync, readdir } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';
 import type { CloudProvider, AIType } from '../types/index.js';
 import { CLOUD_PROVIDERS, AI_TYPES, CLOUD_FOLDERS, AI_FOLDERS } from '../types/index.js';
 import { logger } from '../utils/logger.js';
 import { detectAIType, getAITypeDescription } from '../utils/detect.js';
-import {
-  getLatestRelease,
-  getAssetUrl,
-  downloadRelease,
-  GitHubRateLimitError,
-  GitHubDownloadError,
-} from '../utils/github.js';
-import { createTempDir, cleanup, copyFolders, extractZip, mkdir } from '../utils/extract.js';
+import { cloneRepo, GitCloneError } from '../utils/github.js';
+import { createTempDir, cleanup, copyFolders, mkdir } from '../utils/extract.js';
 
 interface InitOptions {
   provider?: CloudProvider;
@@ -117,37 +111,12 @@ async function tryGitHubInstall(
   let tempDir: string | null = null;
 
   try {
-    spinner.text = 'Fetching latest release from GitHub...';
-    const release = await getLatestRelease();
-    const assetUrl = getAssetUrl(release);
-
-    if (!assetUrl) {
-      throw new GitHubDownloadError('No ZIP asset found in latest release');
-    }
-
-    spinner.text = `Downloading ${release.tag_name}...`;
+    spinner.text = 'Cloning repository from GitHub...';
     tempDir = await createTempDir();
-    const zipPath = join(tempDir, 'release.zip');
-
-    await downloadRelease(assetUrl, zipPath);
-
-    spinner.text = 'Extracting files...';
-    // Extract ZIP to a subdirectory
-    const extractDir = join(tempDir, 'extracted');
-    await mkdir(extractDir, { recursive: true });
-    await extractZip(zipPath, extractDir);
-
-    // Find the actual project root (GitHub creates a subdirectory like awsome-cloud-skills-{tag})
-    const entries = await readdir(extractDir);
-    let projectRoot = extractDir;
-    for (const entry of entries) {
-      const entryPath = join(extractDir, entry);
-      // Check if this entry contains skills folder
-      if (existsSync(join(entryPath, 'skills'))) {
-        projectRoot = entryPath;
-        break;
-      }
-    }
+    
+    // Clone into a subdirectory
+    const cloneDir = join(tempDir, 'repo');
+    await cloneRepo(cloneDir);
 
     spinner.text = 'Installing to target directory...';
 
@@ -168,13 +137,9 @@ async function tryGitHubInstall(
     await mkdir(skillsDir, { recursive: true });
 
     // Determine source directory containing skills
-    const folders = provider === 'all'
-      ? ['alibaba-cloud-skill', 'aws-cloud-skill']
-      : CLOUD_FOLDERS[provider] || [];
-    
-    let sourceDir = projectRoot;
-    if (existsSync(join(projectRoot, 'skills', folders[0]))) {
-      sourceDir = join(projectRoot, 'skills');
+    let sourceDir = cloneDir;
+    if (existsSync(join(cloneDir, 'skills'))) {
+      sourceDir = join(cloneDir, 'skills');
     }
 
     // Copy skill folders
@@ -189,13 +154,8 @@ async function tryGitHubInstall(
       await cleanup(tempDir);
     }
 
-    if (error instanceof GitHubRateLimitError) {
-      spinner.warn('GitHub rate limit reached, falling back...');
-      return null;
-    }
-
-    if (error instanceof GitHubDownloadError) {
-      spinner.warn('GitHub download failed, falling back...');
+    if (error instanceof GitCloneError) {
+      spinner.warn('GitHub clone failed, falling back...');
       return null;
     }
 
