@@ -1,7 +1,7 @@
 import { exec } from 'node:child_process';
 import { join } from 'node:path';
 
-const REPO_URL = 'https://github.com/RupengWang/awsome-cloud-skills.git';
+const REPO_URL = 'http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills.git';
 
 export class GitCloneError extends Error {
   constructor(message: string) {

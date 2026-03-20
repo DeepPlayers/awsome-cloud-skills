@@ -3,7 +3,7 @@ import ora from 'ora';
 import { exec } from 'node:child_process';
 import { logger } from '../utils/logger.js';
 
-const REPO_URL = 'https://github.com/RupengWang/awsome-cloud-skills.git';
+const REPO_URL = 'http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills.git';
 
 export async function versionsCommand(): Promise<void> {
   const spinner = ora('Fetching tags...').start();

@@ -5,7 +5,7 @@ import { logger } from '../utils/logger.js';
 import { initCommand } from './init.js';
 import type { CloudProvider, AIType } from '../types/index.js';
 
-const REPO_URL = 'https://github.com/RupengWang/awsome-cloud-skills.git';
+const REPO_URL = 'http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills.git';
 
 interface UpdateOptions {
   provider?: CloudProvider;
@@ -29,10 +29,10 @@ export async function updateCommand(options: UpdateOptions): Promise<void> {
       });
     });
     
-    spinner.succeed('GitHub connection successful');
+    spinner.succeed('GitLab connection successful');
 
     console.log();
-    logger.info('Running update (pulling latest from GitHub)...');
+    logger.info('Running update (pulling latest from GitLab)...');
     console.log();
 
     await initCommand({

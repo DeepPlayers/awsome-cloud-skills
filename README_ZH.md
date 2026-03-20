@@ -2,13 +2,13 @@
 <p align="center">
   <a href="#快速开始"><strong>快速开始</strong></a> &middot;
   <a href="alibaba-cloud-skill/SKILL.md"><strong>技能文档</strong></a> &middot;
-  <a href="https://github.com/RupengWang/awsome-cloud-skills"><strong>GitHub</strong></a> &middot;
+  <a href="http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills"><strong>GitLab</strong></a> &middot;
   <a href="alibaba-cloud-skill/references/zh/"><strong>参考文档</strong></a>
 </p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="Apache License 2.0" /></a>
-  <a href="https://github.com/RupengWang/awsome-cloud-skills/stargazers"><img src="https://img.shields.io/github/stars/RupengWang/awsome-cloud-skills?style=flat" alt="Stars" /></a>
+  <a href="http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills"><img src="https://img.shields.io/badge/GitLab-Repository-orange" alt="GitLab" /></a>
 </p>
 
 <br/>
