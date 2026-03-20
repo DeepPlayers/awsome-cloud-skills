@@ -1,100 +1,186 @@
 # Awesome Cloud Skills
 
-云服务操作技能集合，提供主流云服务商的CLI操作SOP、脚本和参考文档。
+A collection of cloud service operation skills, providing CLI operation SOPs, scripts, and reference documentation for major cloud providers.
 
-## 项目结构
+## Project Structure
 
 ```
 .
-├── alibaba-cloud/          # 阿里云技能
-│   ├── SKILL.md            # 技能定义文件
-│   ├── references/         # 参考文档
-│   └── scripts/            # 操作脚本
-│       ├── ecs/            # ECS实例操作
-│       ├── oss/            # OSS存储操作
-│       └── utils/          # 工具函数
+├── alibaba-cloud/          # Alibaba Cloud Skills
+│   ├── SKILL.md            # Skill definition file
+│   ├── references/         # Reference documentation
+│   └── scripts/            # Operation scripts
+│       ├── ecs/            # ECS instance operations
+│       ├── oss/            # OSS storage operations
+│       └── utils/          # Utility functions
 ```
 
-## 阿里云CLI技能
+## Alibaba Cloud CLI Skill
 
-提供阿里云CLI的完整操作SOP，包括：
+Provides complete operation SOP for Alibaba Cloud CLI, including:
 
-### 快速开始
+### Quick Start
 
 ```bash
-# 检查是否已安装
+# Check if installed
 aliyun version
 
-# macOS安装
+# macOS installation
 brew install aliyun-cli
 
-# Linux安装
+# Linux installation
 /bin/bash -c "$(curl -fsSL https://aliyuncli.alicdn.com/install.sh)"
 
-# 配置凭证
+# Configure credentials
 aliyun configure
 ```
 
-### 主要功能
+### Key Features
 
-| 功能 | 说明 |
-|------|------|
-| ECS管理 | 实例创建、启停、镜像制作、跨地域迁移 |
-| OSS操作 | Bucket管理、文件上传下载、目录同步 |
-| 凭证管理 | 多凭证配置、RAM角色、环境变量 |
-| 输出格式化 | JSON/表格式输出、结果过滤 |
+| Feature | Description |
+|---------|-------------|
+| ECS Management | Instance creation, start/stop, image creation, cross-region migration |
+| OSS Operations | Bucket management, file upload/download, directory sync |
+| Credential Management | Multi-credential configuration, RAM roles, environment variables |
+| Output Formatting | JSON/table output, result filtering |
+| Auto Sync | Automatic remote repository update check before skill invocation |
 
-### 常用命令
+### Common Commands
 
 ```bash
-# 查询ECS实例
+# Query ECS instances
 aliyun ecs DescribeInstances --RegionId cn-hangzhou
 
-# 查询可用插件
+# List available plugins
 aliyun plugin list-remote
 
-# 安装插件
+# Install plugins
 aliyun plugin install --names ecs
 ```
 
-## 参考文档
+### Checking CLI Support for Unlisted Products
 
-详细文档位于 `alibaba-cloud/references/` 目录：
+When the product you need to operate is not explicitly covered in this skill, or you encounter "command not found" errors, follow this SOP:
 
-- [什么是阿里云CLI](alibaba-cloud/references/01-什么是阿里云CLI/)
-- [快速入门](alibaba-cloud/references/02-快速入门/)
-- [安装指南](alibaba-cloud/references/03-安装指南/)
-- [配置阿里云CLI](alibaba-cloud/references/04-配置阿里云CLI/)
-- [使用阿里云CLI](alibaba-cloud/references/05-使用阿里云CLI/)
-- [最佳实践](alibaba-cloud/references/06-最佳实践/)
-- [错误排查](alibaba-cloud/references/08-错误排查/)
+```bash
+# Step 1: Check if the product provides CLI support
+aliyun plugin list-remote
 
-## 脚本说明
+# Step 2: Search for the plugin by product name
+aliyun plugin search <product-keyword>
 
-操作脚本位于 `alibaba-cloud/scripts/` 目录：
+# Step 3: Install the confirmed plugin
+aliyun plugin install --names <plugin-name>
+
+# Step 4: Check supported operations via --help
+aliyun <product-code> --help
+```
+
+**Example - Check DMS product CLI support:**
+
+```bash
+# Search and install DMS plugin
+aliyun plugin search dms
+aliyun plugin install --names dms
+
+# Check available commands
+aliyun dms --help
+```
+
+### Handling Queries Without Specified Region
+
+> **Scope**: This SOP applies to all Alibaba Cloud products that require a RegionId parameter, not limited to ECS.
+
+When a query operation requires a `RegionId` parameter but the customer hasn't specified a region, follow this SOP:
+
+```bash
+# Step 1: Ask the user to confirm the region
+# Inquire which region they want to operate in
+
+# Step 2: If the user is unsure, list available regions (ECS provides universal region listing)
+aliyun ecs DescribeRegions --accept-language en-US
+
+# For other products, use the same ECS interface to get Region list
+aliyun ecs DescribeRegions --output json | jq -r '.Regions.Region[].RegionId'
+```
+
+**Query across multiple regions:**
+
+```bash
+# Get all available regions
+REGIONS=$(aliyun ecs DescribeRegions --output json | jq -r '.Regions.Region[].RegionId')
+
+# Iterate through each region
+for REGION in $REGIONS; do
+    echo "=== Region: $REGION ==="
+    # RDS instance query example
+    aliyun rds DescribeDBInstances --RegionId "$REGION"
+done
+```
+
+**Examples for different products:**
+
+```bash
+# ECS instances
+aliyun ecs DescribeInstances --RegionId cn-hangzhou --output table
+
+# RDS instances
+aliyun rds DescribeDBInstances --RegionId cn-hangzhou --output table
+
+# VPC resources
+aliyun vpc DescribeVpcs --RegionId cn-hangzhou --output table
+```
+
+## Auto Sync Mechanism
+
+When an Agent invokes this skill, it automatically checks for remote repository updates:
+
+- Remote repository: `http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills.git`
+- Auto-configures remote repository (if not configured)
+- Auto-syncs latest updates (if no conflicts)
+- Skips sync and alerts user on conflicts
+
+See the "Pre-execution: Repository Sync Check" section in [alibaba-cloud/SKILL.md](alibaba-cloud/SKILL.md).
+
+## Reference Documentation
+
+Detailed documentation is located in the `alibaba-cloud/references/` directory:
+
+- [What is Alibaba Cloud CLI](alibaba-cloud/references/01-什么是阿里云CLI/)
+- [Quick Start](alibaba-cloud/references/02-快速入门/)
+- [Installation Guide](alibaba-cloud/references/03-安装指南/)
+- [Configure Alibaba Cloud CLI](alibaba-cloud/references/04-配置阿里云CLI/)
+- [Using Alibaba Cloud CLI](alibaba-cloud/references/05-使用阿里云CLI/)
+- [Best Practices](alibaba-cloud/references/06-最佳实践/)
+- [Troubleshooting](alibaba-cloud/references/08-错误排查/)
+
+## Scripts
+
+Operation scripts are located in the `alibaba-cloud/scripts/` directory:
 
 ```
 scripts/
-├── install.sh           # CLI安装脚本
-├── configure.sh         # 凭证配置脚本
+├── install.sh           # CLI installation script
+├── configure.sh         # Credential configuration script
 ├── ecs/
-│   ├── list-instances.sh    # 列出实例
-│   ├── create-instance.sh   # 创建实例
-│   ├── start-instance.sh    # 启动实例
-│   ├── stop-instance.sh     # 停止实例
-│   ├── create-image.sh      # 创建镜像
-│   └── migrate-instance.sh  # 跨地域迁移
+│   ├── list-instances.sh    # List instances
+│   ├── create-instance.sh   # Create instance
+│   ├── start-instance.sh    # Start instance
+│   ├── stop-instance.sh     # Stop instance
+│   ├── create-image.sh      # Create image
+│   └── migrate-instance.sh  # Cross-region migration
 ├── oss/
-│   ├── bucket-ops.sh    # Bucket操作
-│   ├── upload.sh        # 上传文件
-│   ├── download.sh      # 下载文件
-│   └── sync.sh          # 同步目录
+│   ├── bucket-ops.sh    # Bucket operations
+│   ├── upload.sh        # Upload files
+│   ├── download.sh      # Download files
+│   └── sync.sh          # Sync directory
 └── utils/
-    ├── output-format.sh # 输出格式化
-    ├── waiter.sh        # 等待工具
-    └── error-check.sh   # 错误检查
+    ├── sync-repo.sh     # Repository sync check (execute first)
+    ├── output-format.sh # Output formatting
+    ├── waiter.sh        # Wait utility
+    └── error-check.sh   # Error checking
 ```
 
-## 许可证
+## License
 
 MIT License
