@@ -1,4 +1,22 @@
-# Awesome Cloud Skills
+# Awesome cloud skills
+<p align="center">
+  <a href="#quick-start"><strong>Quick Start</strong></a> &middot;
+  <a href="alibaba-cloud-skill/SKILL.md"><strong>Skill Docs</strong></a> &middot;
+  <a href="README_ZH.md"><strong>中文文档</strong></a> &middot;
+  <a href="https://github.com/RupengWang/awsome-cloud-skills"><strong>GitHub</strong></a> &middot;
+  <a href="alibaba-cloud-skill/references/"><strong>References</strong></a>
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="Apache License 2.0" /></a>
+  <a href="https://github.com/RupengWang/awsome-cloud-skills/stargazers"><img src="https://img.shields.io/github/stars/RupengWang/awsome-cloud-skills?style=flat" alt="Stars" /></a>
+</p>
+
+<br/>
+
+<br/>
+
+## What is Awesome Cloud Skills?
 
 A collection of cloud service operation skills, providing CLI operation SOPs, scripts, and reference documentation for major cloud providers.
 
@@ -6,7 +24,7 @@ A collection of cloud service operation skills, providing CLI operation SOPs, sc
 
 ```
 .
-├── alibaba-cloud/          # Alibaba Cloud Skills
+├── alibaba-cloud-skill/     # Alibaba Cloud Skills
 │   ├── SKILL.md            # Skill definition file
 │   ├── references/         # Reference documentation
 │   └── scripts/            # Operation scripts
@@ -140,23 +158,23 @@ When an Agent invokes this skill, it automatically checks for remote repository 
 - Auto-syncs latest updates (if no conflicts)
 - Skips sync and alerts user on conflicts
 
-See the "Pre-execution: Repository Sync Check" section in [alibaba-cloud/SKILL.md](alibaba-cloud/SKILL.md).
+See the "Pre-execution: Repository Sync Check" section in [alibaba-cloud-skill/SKILL.md](alibaba-cloud-skill/SKILL.md).
 
 ## Reference Documentation
 
-Detailed documentation is located in the `alibaba-cloud/references/` directory:
+Detailed documentation is located in the `alibaba-cloud-skill/references/` directory:
 
-- [What is Alibaba Cloud CLI](alibaba-cloud/references/01-什么是阿里云CLI/)
-- [Quick Start](alibaba-cloud/references/02-快速入门/)
-- [Installation Guide](alibaba-cloud/references/03-安装指南/)
-- [Configure Alibaba Cloud CLI](alibaba-cloud/references/04-配置阿里云CLI/)
-- [Using Alibaba Cloud CLI](alibaba-cloud/references/05-使用阿里云CLI/)
-- [Best Practices](alibaba-cloud/references/06-最佳实践/)
-- [Troubleshooting](alibaba-cloud/references/08-错误排查/)
+- [What is Alibaba Cloud CLI](alibaba-cloud-skill/references/01-what-is-alibaba-cloud-cli/)
+- [Quick Start](alibaba-cloud-skill/references/02-quick-start/)
+- [Installation Guide](alibaba-cloud-skill/references/03-installation-guide/)
+- [Configure Alibaba Cloud CLI](alibaba-cloud-skill/references/04-configure-alibaba-cloud-cli/)
+- [Using Alibaba Cloud CLI](alibaba-cloud-skill/references/05-using-alibaba-cloud-cli/)
+- [Best Practices](alibaba-cloud-skill/references/06-best-practices/)
+- [Troubleshooting](alibaba-cloud-skill/references/08-troubleshooting/)
 
 ## Scripts
 
-Operation scripts are located in the `alibaba-cloud/scripts/` directory:
+Operation scripts are located in the `alibaba-cloud-skill/scripts/` directory:
 
 ```
 scripts/

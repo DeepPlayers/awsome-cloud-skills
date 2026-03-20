@@ -1,4 +1,21 @@
-# Awesome Cloud Skills
+# Awesome cloud skills
+<p align="center">
+  <a href="#快速开始"><strong>快速开始</strong></a> &middot;
+  <a href="alibaba-cloud-skill/SKILL.md"><strong>技能文档</strong></a> &middot;
+  <a href="https://github.com/RupengWang/awsome-cloud-skills"><strong>GitHub</strong></a> &middot;
+  <a href="alibaba-cloud-skill/references/zh/"><strong>参考文档</strong></a>
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="Apache License 2.0" /></a>
+  <a href="https://github.com/RupengWang/awsome-cloud-skills/stargazers"><img src="https://img.shields.io/github/stars/RupengWang/awsome-cloud-skills?style=flat" alt="Stars" /></a>
+</p>
+
+<br/>
+
+<br/>
+
+## 什么是 Awesome Cloud Skills?
 
 云服务操作技能集合，提供主流云服务商的CLI操作SOP、脚本和参考文档。
 
@@ -6,7 +23,7 @@
 
 ```
 .
-├── alibaba-cloud/          # 阿里云技能
+├── alibaba-cloud-skill/     # 阿里云技能
 │   ├── SKILL.md            # 技能定义文件
 │   ├── references/         # 参考文档
 │   └── scripts/            # 操作脚本
@@ -67,23 +84,23 @@ aliyun plugin install --names ecs
 - 自动同步最新更新（如无冲突）
 - 冲突时跳过同步并提醒用户
 
-详见 [alibaba-cloud/SKILL.md](alibaba-cloud/SKILL.md) 中的「执行前必读：仓库同步检查」章节。
+详见 [alibaba-cloud-skill/SKILL.md](alibaba-cloud-skill/SKILL.md) 中的「执行前必读：仓库同步检查」章节。
 
 ## 参考文档
 
-详细文档位于 `alibaba-cloud/references/` 目录：
+详细文档位于 `alibaba-cloud-skill/references/zh/` 目录：
 
-- [什么是阿里云CLI](alibaba-cloud/references/01-什么是阿里云CLI/)
-- [快速入门](alibaba-cloud/references/02-快速入门/)
-- [安装指南](alibaba-cloud/references/03-安装指南/)
-- [配置阿里云CLI](alibaba-cloud/references/04-配置阿里云CLI/)
-- [使用阿里云CLI](alibaba-cloud/references/05-使用阿里云CLI/)
-- [最佳实践](alibaba-cloud/references/06-最佳实践/)
-- [错误排查](alibaba-cloud/references/08-错误排查/)
+- [什么是阿里云CLI](alibaba-cloud-skill/references/zh/01-什么是阿里云CLI/)
+- [快速入门](alibaba-cloud-skill/references/zh/02-快速入门/)
+- [安装指南](alibaba-cloud-skill/references/zh/03-安装指南/)
+- [配置阿里云CLI](alibaba-cloud-skill/references/zh/04-配置阿里云CLI/)
+- [使用阿里云CLI](alibaba-cloud-skill/references/zh/05-使用阿里云CLI/)
+- [最佳实践](alibaba-cloud-skill/references/zh/06-最佳实践/)
+- [错误排查](alibaba-cloud-skill/references/zh/08-错误排查/)
 
 ## 脚本说明
 
-操作脚本位于 `alibaba-cloud/scripts/` 目录：
+操作脚本位于 `alibaba-cloud-skill/scripts/` 目录：
 
 ```
 scripts/
@@ -110,4 +127,4 @@ scripts/
 
 ## 许可证
 
-MIT License
+Apache License 2.0 - 详见 [LICENSE](LICENSE) 文件。
