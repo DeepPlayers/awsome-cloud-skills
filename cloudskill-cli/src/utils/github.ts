@@ -1,7 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import type { Release } from '../types/index.js';
 
-const REPO_OWNER = 'ez-tam-ai';
+const REPO_OWNER = 'RupengWang';
 const REPO_NAME = 'awsome-cloud-skills';
 const API_BASE = 'https://api.github.com';
 

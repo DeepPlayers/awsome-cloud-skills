@@ -1,13 +1,13 @@
 import chalk from 'chalk';
 import ora from 'ora';
 import prompts from 'prompts';
-import { existsSync } from 'node:fs';
+import { existsSync, readdir } from 'node:fs';
 import { homedir } from 'node:os';
 import { join, resolve } from 'node:path';
 import type { CloudProvider, AIType } from '../types/index.js';
 import { CLOUD_PROVIDERS, AI_TYPES, CLOUD_FOLDERS, AI_FOLDERS } from '../types/index.js';
 import { logger } from '../utils/logger.js';
-import { detectAIType, detectCloudProvider, getAITypeDescription, getCloudProviderDescription } from '../utils/detect.js';
+import { detectAIType, getAITypeDescription } from '../utils/detect.js';
 import {
   getLatestRelease,
   getAssetUrl,
@@ -15,7 +15,7 @@ import {
   GitHubRateLimitError,
   GitHubDownloadError,
 } from '../utils/github.js';
-import { createTempDir, cleanup, copyFolders } from '../utils/extract.js';
+import { createTempDir, cleanup, copyFolders, extractZip, mkdir } from '../utils/extract.js';
 
 interface InitOptions {
   provider?: CloudProvider;
@@ -110,8 +110,10 @@ function findSkillSourceDir(cwd: string, provider: CloudProvider): string | null
 async function tryGitHubInstall(
   targetDir: string,
   provider: CloudProvider,
-  spinner: ReturnType<typeof ora>
-): Promise<string[] | null> {
+  aiType: AIType,
+  spinner: ReturnType<typeof ora>,
+  installPath?: string | boolean
+): Promise<{ cloudFolders: string[]; skillsDirs: string[] } | null> {
   let tempDir: string | null = null;
 
   try {
@@ -129,12 +131,59 @@ async function tryGitHubInstall(
 
     await downloadRelease(assetUrl, zipPath);
 
-    spinner.text = 'Extracting and installing files...';
-    const copiedFolders = await copyFolders(tempDir, targetDir, provider);
+    spinner.text = 'Extracting files...';
+    // Extract ZIP to a subdirectory
+    const extractDir = join(tempDir, 'extracted');
+    await mkdir(extractDir, { recursive: true });
+    await extractZip(zipPath, extractDir);
+
+    // Find the actual project root (GitHub creates a subdirectory like awsome-cloud-skills-{tag})
+    const entries = await readdir(extractDir);
+    let projectRoot = extractDir;
+    for (const entry of entries) {
+      const entryPath = join(extractDir, entry);
+      // Check if this entry contains skills folder
+      if (existsSync(join(entryPath, 'skills'))) {
+        projectRoot = entryPath;
+        break;
+      }
+    }
+
+    spinner.text = 'Installing to target directory...';
+
+    // Get the AI IDE folder name
+    const targetAIType = aiType === 'all' ? 'claude' : aiType;
+    const aiFolderNames = AI_FOLDERS[targetAIType] || ['.claude'];
+    const aiFolder = aiFolderNames[0];
+
+    // Determine base directory for AI IDE
+    const baseDir = getTargetBaseDir(installPath);
+    
+    // Create the AI IDE folder structure: {baseDir}/{.qoder}/skills/
+    const { mkdir } = await import('node:fs/promises');
+    const aiDir = join(baseDir, aiFolder);
+    const skillsDir = join(aiDir, 'skills');
+    
+    await mkdir(aiDir, { recursive: true });
+    await mkdir(skillsDir, { recursive: true });
+
+    // Determine source directory containing skills
+    const folders = provider === 'all'
+      ? ['alibaba-cloud-skill', 'aws-cloud-skill']
+      : CLOUD_FOLDERS[provider] || [];
+    
+    let sourceDir = projectRoot;
+    if (existsSync(join(projectRoot, 'skills', folders[0]))) {
+      sourceDir = join(projectRoot, 'skills');
+    }
+
+    // Copy skill folders
+    const cloudFolders = await copyFolders(sourceDir, skillsDir, provider);
+    const skillsDirs = [skillsDir];
 
     await cleanup(tempDir);
 
-    return copiedFolders;
+    return { cloudFolders, skillsDirs };
   } catch (error) {
     if (tempDir) {
       await cleanup(tempDir);
@@ -286,9 +335,10 @@ export async function initCommand(options: InitOptions): Promise<void> {
     // Default: Try GitHub download first, fall back to local source
     if (!options.offline) {
       spinner.text = 'Downloading from GitHub...';
-      const githubResult = await tryGitHubInstall(searchDir, provider, spinner);
-      if (githubResult && githubResult.length > 0) {
-        cloudFolders = githubResult;
+      const githubResult = await tryGitHubInstall(targetDir, provider, aiType, spinner, installPath);
+      if (githubResult && githubResult.cloudFolders.length > 0) {
+        cloudFolders = githubResult.cloudFolders;
+        skillsDirs = githubResult.skillsDirs;
         installMethod = 'github';
       }
     }
