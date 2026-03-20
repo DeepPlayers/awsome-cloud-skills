@@ -74,26 +74,34 @@ function getTargetBaseDir(installPath?: string | boolean): string {
 }
 
 /**
- * Find the skill source directory
+ * Find the project root directory containing skills
+ * Looks for:
+ * 1. {cwd}/skills/{cloud-skill} -> returns {cwd}
+ * 2. {cwd}/{cloud-skill} -> returns {cwd}
+ * 3. {cwd}/../skills/{cloud-skill} -> returns {cwd}/..
+ * 4. {cwd}/../{cloud-skill} -> returns {cwd}/..
  */
 function findSkillSourceDir(cwd: string, provider: CloudProvider): string | null {
   const folders = provider === 'all'
     ? ['alibaba-cloud-skill', 'aws-cloud-skill']
     : CLOUD_FOLDERS[provider] || [];
 
-  // Check current directory
-  for (const folder of folders) {
-    const cwdPath = join(cwd, folder);
-    if (existsSync(cwdPath)) {
-      return cwd;
-    }
-  }
+  // Check current directory and its subdirectories
+  const searchLocations = [
+    cwd,                          // {cwd}/alibaba-cloud-skill or {cwd}/skills/alibaba-cloud-skill
+    join(cwd, '..'),              // {cwd}/../alibaba-cloud-skill or {cwd}/../skills/alibaba-cloud-skill
+  ];
 
-  // Check parent directory (for development: running from project root)
-  for (const folder of folders) {
-    const parentPath = join(cwd, '..', folder);
-    if (existsSync(parentPath)) {
-      return resolve(cwd, '..');
+  for (const location of searchLocations) {
+    for (const folder of folders) {
+      // Check direct placement: {location}/{folder}
+      if (existsSync(join(location, folder))) {
+        return location;
+      }
+      // Check in skills subdirectory: {location}/skills/{folder}
+      if (existsSync(join(location, 'skills', folder))) {
+        return location;
+      }
     }
   }
 
@@ -154,6 +162,7 @@ async function tryGitHubInstall(
 }
 
 async function copyFromSource(
+  searchDir: string,
   targetDir: string,
   provider: CloudProvider,
   aiType: AIType,
@@ -164,22 +173,34 @@ async function copyFromSource(
   
   spinner.text = 'Looking for skill source directory...';
 
-  // First find the source directory with skill files
-  const sourceDir = findSkillSourceDir(targetDir, provider);
+  // Find the project root containing skills, relative to searchDir
+  const projectRoot = findSkillSourceDir(searchDir, provider);
 
-  if (!sourceDir) {
+  if (!projectRoot) {
     return { cloudFolders: [], aiFolders: [], skillsDirs: [] };
   }
 
-  spinner.text = `Copying from ${sourceDir}...`;
+  spinner.text = `Copying from ${projectRoot}...`;
 
   try {
+    // Determine the actual source directory containing skill folders
+    // Check if skills are in skills/ subdirectory
+    const folders = provider === 'all'
+      ? ['alibaba-cloud-skill', 'aws-cloud-skill']
+      : CLOUD_FOLDERS[provider] || [];
+    
+    let sourceDir = projectRoot;
+    // Check if skills are in skills/ subdirectory
+    if (existsSync(join(projectRoot, 'skills', folders[0]))) {
+      sourceDir = join(projectRoot, 'skills');
+    }
+
     // Get the AI IDE folder name
     const targetAIType = aiType === 'all' ? 'claude' : aiType;
     const aiFolderNames = AI_FOLDERS[targetAIType] || ['.claude'];
     const aiFolder = aiFolderNames[0];
 
-    // Determine base directory
+    // Determine base directory for AI IDE
     const baseDir = getTargetBaseDir(installPath);
     
     // Create the AI IDE folder structure: {baseDir}/{.qoder}/skills/
@@ -259,10 +280,13 @@ export async function initCommand(options: InitOptions): Promise<void> {
   let skillsDirs: string[] = [];
   let installMethod = 'source';
 
+  // Always search for skills relative to current working directory
+  const searchDir = process.cwd();
+
   try {
     if (options.legacy) {
       if (!options.offline) {
-        const githubResult = await tryGitHubInstall(targetDir, provider, spinner);
+        const githubResult = await tryGitHubInstall(searchDir, provider, spinner);
         if (githubResult && githubResult.length > 0) {
           cloudFolders = githubResult;
           installMethod = 'github';
@@ -271,14 +295,14 @@ export async function initCommand(options: InitOptions): Promise<void> {
 
       if (installMethod !== 'github') {
         spinner.text = 'Installing from bundled assets...';
-        const result = await copyFromSource(targetDir, provider, aiType, spinner, installPath);
+        const result = await copyFromSource(searchDir, targetDir, provider, aiType, spinner, installPath);
         cloudFolders = result.cloudFolders;
         skillsDirs = result.skillsDirs;
         installMethod = 'bundled';
       }
     } else {
       // Default: copy from source directory
-      const result = await copyFromSource(targetDir, provider, aiType, spinner, installPath);
+      const result = await copyFromSource(searchDir, targetDir, provider, aiType, spinner, installPath);
       cloudFolders = result.cloudFolders;
       skillsDirs = result.skillsDirs;
       installMethod = 'source';
@@ -286,7 +310,7 @@ export async function initCommand(options: InitOptions): Promise<void> {
 
     if (cloudFolders.length === 0) {
       // Try GitHub as fallback
-      const githubResult = await tryGitHubInstall(targetDir, provider, spinner);
+      const githubResult = await tryGitHubInstall(searchDir, provider, spinner);
       if (githubResult && githubResult.length > 0) {
         cloudFolders = githubResult;
         installMethod = 'github';
