@@ -29,8 +29,7 @@ program
   .option('-g, --global', 'Install to global home directory (~/.qoder/skills)')
   .option('--path <dir>', 'Install to specified project directory')
   .option('-f, --force', 'Overwrite existing files')
-  .option('-o, --offline', 'Skip GitHub download, use bundled assets only')
-  .option('--legacy', 'Use legacy ZIP-based installation')
+  .option('-o, --offline', 'Use local source only (skip GitHub download)')
   .action(async (options) => {
     if (options.provider && !CLOUD_PROVIDERS.includes(options.provider)) {
       console.error(`Invalid cloud provider: ${options.provider}`);
@@ -53,7 +52,6 @@ program
       path: options.path,
       force: options.force,
       offline: options.offline,
-      legacy: options.legacy,
     });
   });
 

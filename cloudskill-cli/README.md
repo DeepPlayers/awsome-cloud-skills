@@ -40,14 +40,18 @@ cloudskill init --provider all --ai claude            # All providers
 
 # Options
 cloudskill init --force               # Overwrite existing files
-cloudskill init --offline             # Skip GitHub download
-cloudskill init --legacy              # Use ZIP-based installation
+cloudskill init --offline             # Use local source only
 
 # Other commands
 cloudskill versions                   # List available versions
 cloudskill update                     # Update to latest version
 cloudskill update --ai claude         # Update for specific AI
 ```
+
+## Installation Flow
+
+1. **Default**: Downloads latest release from GitHub
+2. **Fallback**: If GitHub fails or `--offline` is specified, uses local `skills/` directory
 
 ## Installation Modes
 

@@ -24,7 +24,6 @@ interface InitOptions {
   path?: string;
   force?: boolean;
   offline?: boolean;
-  legacy?: boolean;
 }
 
 /**
@@ -284,32 +283,9 @@ export async function initCommand(options: InitOptions): Promise<void> {
   const searchDir = process.cwd();
 
   try {
-    if (options.legacy) {
-      if (!options.offline) {
-        const githubResult = await tryGitHubInstall(searchDir, provider, spinner);
-        if (githubResult && githubResult.length > 0) {
-          cloudFolders = githubResult;
-          installMethod = 'github';
-        }
-      }
-
-      if (installMethod !== 'github') {
-        spinner.text = 'Installing from bundled assets...';
-        const result = await copyFromSource(searchDir, targetDir, provider, aiType, spinner, installPath);
-        cloudFolders = result.cloudFolders;
-        skillsDirs = result.skillsDirs;
-        installMethod = 'bundled';
-      }
-    } else {
-      // Default: copy from source directory
-      const result = await copyFromSource(searchDir, targetDir, provider, aiType, spinner, installPath);
-      cloudFolders = result.cloudFolders;
-      skillsDirs = result.skillsDirs;
-      installMethod = 'source';
-    }
-
-    if (cloudFolders.length === 0) {
-      // Try GitHub as fallback
+    // Default: Try GitHub download first, fall back to local source
+    if (!options.offline) {
+      spinner.text = 'Downloading from GitHub...';
       const githubResult = await tryGitHubInstall(searchDir, provider, spinner);
       if (githubResult && githubResult.length > 0) {
         cloudFolders = githubResult;
@@ -317,8 +293,17 @@ export async function initCommand(options: InitOptions): Promise<void> {
       }
     }
 
+    // Fall back to local source if GitHub failed or --offline mode
     if (cloudFolders.length === 0) {
-      throw new Error('No skill folders found to install');
+      spinner.text = 'Checking local source...';
+      const result = await copyFromSource(searchDir, targetDir, provider, aiType, spinner, installPath);
+      cloudFolders = result.cloudFolders;
+      skillsDirs = result.skillsDirs;
+      installMethod = result.cloudFolders.length > 0 ? 'source' : installMethod;
+    }
+
+    if (cloudFolders.length === 0) {
+      throw new Error('No skill folders found. Try again or check your network.');
     }
 
     const methodMessage = {
