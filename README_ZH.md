@@ -134,7 +134,7 @@ scripts/
 
 ### 如何贡献？
 
-- 贡献您熟悉的 SOP 流程，参考[现有的 SOP 模板](https://alidocs.dingtalk.com/i/nodes/amweZ92PV6DbOdgzUgeYX0rz8xEKBD6p?utm_scene=team_space&iframeQuery=anchorId%3Duu_mn2vjt0m11v08687dx8q)
+- 贡献您熟悉的 SOP 流程，参考[现有的 SOP 模板](skills/alibaba-cloud-skill/diagrams/)
 - 贡献使用的 Scripts 工具脚本，比如 ACS 集群运维脚本等
 
 ## Star 趋势

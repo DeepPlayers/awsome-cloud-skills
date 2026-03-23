@@ -208,7 +208,7 @@ If you encounter issues or have suggestions for improvement, feel free to:
 
 ### How to Contribute?
 
-- Contribute SOP workflows you're familiar with, refer to [existing SOP templates](https://alidocs.dingtalk.com/i/nodes/amweZ92PV6DbOdgzUgeYX0rz8xEKBD6p?utm_scene=team_space&iframeQuery=anchorId%3Duu_mn2vjt0m11v08687dx8q)
+- Contribute SOP workflows you're familiar with, refer to [existing SOP templates](skills/alibaba-cloud-skill/diagrams/)
 - Contribute utility scripts, such as ACS cluster operation scripts
 
 ## Star History
