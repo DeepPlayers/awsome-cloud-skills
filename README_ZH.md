@@ -137,6 +137,10 @@ scripts/
 - 贡献您熟悉的 SOP 流程，参考[现有的 SOP 模板](https://alidocs.dingtalk.com/i/nodes/amweZ92PV6DbOdgzUgeYX0rz8xEKBD6p?utm_scene=team_space&iframeQuery=anchorId%3Duu_mn2vjt0m11v08687dx8q)
 - 贡献使用的 Scripts 工具脚本，比如 ACS 集群运维脚本等
 
+## Star 趋势
+
+[![Star History Chart](https://api.star-history.com/svg?repos=RupengWang/awsome-cloud-skills&type=Date)](https://star-history.com/#RupengWang/awsome-cloud-skills&Date)
+
 ## 许可证
 
 Apache License 2.0 - 详见 [LICENSE](LICENSE) 文件。

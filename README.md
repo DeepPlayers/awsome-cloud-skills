@@ -211,6 +211,10 @@ If you encounter issues or have suggestions for improvement, feel free to:
 - Contribute SOP workflows you're familiar with, refer to [existing SOP templates](https://alidocs.dingtalk.com/i/nodes/amweZ92PV6DbOdgzUgeYX0rz8xEKBD6p?utm_scene=team_space&iframeQuery=anchorId%3Duu_mn2vjt0m11v08687dx8q)
 - Contribute utility scripts, such as ACS cluster operation scripts
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=RupengWang/awsome-cloud-skills&type=Date)](https://star-history.com/#RupengWang/awsome-cloud-skills&Date)
+
 ## License
 
 Apache License 2.0 - see [LICENSE](LICENSE) file for details.
