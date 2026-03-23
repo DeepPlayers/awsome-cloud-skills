@@ -168,8 +168,8 @@ skills/alibaba-cloud-skill/scripts/
 
 ### Coming Soon
 
--☁ AWS CLI Skill (In Development)
--🔷 CLI Skill (Planned)
+-☁ Azure Cloud CLI Skill (In Development)
+-🔷 AWS Cloud CLI Skill (Planned)
 -☁ Google Cloud CLI Skill (Planned)
 
 <br/>
