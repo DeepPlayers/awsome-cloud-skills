@@ -20,9 +20,9 @@
 
 **核心特性：**
 -️ 标准化技能格式，兼容多种 AI IDE
--🔄同步机制，保持技能最新
-- 完整的参考文档
-- 开箱即用的操作脚本
+-🔄机制，保持技能最新
+-️ 完整的参考文档
+-️ 开箱即用的操作脚本
 
 <br/>
 
@@ -60,7 +60,7 @@ cloudskill init --ai all --provider alibaba-cloud
 | OpenCode | `--ai opencode` |
 | Continue | `--ai continue` |
 
-**安装模式：
+**安装模式：**
 
 ```bash
 # 本地安装（项目级）
@@ -77,7 +77,7 @@ cloudskill init --ai qoder --provider alibaba-cloud --path /path/to/project
 
 ## 可用技能
 
-###☁ 阿里云技能 (alibaba-cloud-skill)
+###☁阿里云技能 (alibaba-cloud-skill)
 
 **概述：**
 
@@ -86,4 +86,114 @@ cloudskill init --ai qoder --provider alibaba-cloud --path /path/to/project
 **核心功能：**
 
 | 功能 | 说明 |
-|------|
+|------|------|
+| ECS 管理 | 实例生命周期、镜像制作、跨地域迁移 |
+| OSS 操作 | Bucket 管理、文件同步、批量上传下载 |
+| 凭证管理 | 多凭证配置、RAM 角色、环境变量 |
+| 输出格式化 | JSON/表格输出、结果过滤、分页 |
+| 自动同步 | 技能调用前自动检查仓库更新 |
+
+**安装与使用：**
+
+```bash
+# 通过 cloudskill-cli 安装（推荐）
+cloudskill init --ai qoder --provider alibaba-cloud
+
+# 手动安装
+git clone https://github.com/RupengWang/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
+```
+
+**快速示例：**
+
+```bash
+# 检查 CLI 版本
+aliyun version
+
+# 配置凭证
+aliyun configure
+
+# 查询 ECS 实例
+aliyun ecs DescribeInstances --RegionId cn-hangzhou
+
+# 查看可用插件
+aliyun plugin list-remote
+
+# 安装插件
+aliyun plugin install --names ecs
+```
+
+**SOP 工作流程：**
+
+- [支持检查](skills/alibaba-cloud-skill/diagrams/04-plugin-check-sop.drawio) - 验证未列出产品的 CLI 支持
+- [处理](skills/alibaba-cloud-skill/diagrams/05-region-handle-sop.drawio) - 处理未指定区域的查询
+- [🔄同步](skills/alibaba-cloud-skill/diagrams/01-repo-sync-sop.drawio) - 自动同步机制
+- [✅ 写操作确认](skills/alibaba-cloud-skill/diagrams/02-write-confirm-sop.drawio) - 危险操作的用户确认
+- [💻安装](skills/alibaba-cloud-skill/diagrams/03-cli-install-sop.drawio) - 安装与配置指南
+
+**参考文档：**
+
+- [什么是阿里云 CLI](skills/alibaba-cloud-skill/references/zh/01-什么是阿里云CLI/)
+- [快速入门](skills/alibaba-cloud-skill/references/zh/02-快速入门/)
+- [安装指南](skills/alibaba-cloud-skill/references/zh/03-安装指南/)
+- [配置指南](skills/alibaba-cloud-skill/references/zh/04-配置阿里云CLI/)
+- [使用指南](skills/alibaba-cloud-skill/references/zh/05-使用阿里云CLI/)
+- [最佳实践](skills/alibaba-cloud-skill/references/zh/06-最佳实践/)
+- [错误排查](skills/alibaba-cloud-skill/references/zh/08-错误排查/)
+
+**实用脚本：**
+
+```
+skills/alibaba-cloud-skill/scripts/
+├.sh              # CLI 安装
+├.sh            # 凭证配置
+├/                    # ECS 操作
+│   ├── list-instances.sh
+│   ├── create-instance.sh
+│   ├── start-instance.sh
+│   ├── stop-instance.sh
+│   ├── create-image.sh
+│ └-instance.sh
+├/                    # OSS 操作
+│   ├── bucket-ops.sh
+│   ├── upload.sh
+│   ├── download.sh
+│ └.sh
+└/                  # 工具函数
+    ├── sync-repo.sh        # 仓库同步检查
+    ├── output-format.sh    # 输出格式化
+    ├── waiter.sh           # 等待工具
+  └-check.sh      # 错误检查
+```
+
+### 即将推出
+
+-☁ CLI 技能（开发中）
+- CLI 技能（计划中）
+-☁ Cloud CLI 技能（计划中）
+
+<br/>
+
+## 贡献与反馈
+
+如果您在使用过程中遇到问题或有改进建议，欢迎：
+
+- 参考官方文档：https://help.aliyun.com/zh/cli/quickly-start-using-alibaba-cloud-cli
+- 提交 Issue 或 Pull Request：https://github.com/RupengWang/awsome-cloud-skills
+
+### 如何贡献？
+
+- 贡献您熟悉的 SOP 流程，参考[现有的 SOP 模板](skills/alibaba-cloud-skill/diagrams/)
+- 贡献实用的 Scripts 工具脚本，比如 ACS 集群运维脚本等
+
+<br/>
+
+## Star 趋势
+
+[![Star History Chart](https://api.star-history.com/svg?repos=RupengWang/awsome-cloud-skills&type=Date)](https://star-history.com/#RupengWang/awsome-cloud-skills&Date)
+
+<br/>
+
+## 许可证
+
+Apache License 2.0 - 详见 [LICENSE](LICENSE) 文件。
