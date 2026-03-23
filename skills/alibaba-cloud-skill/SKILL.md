@@ -125,6 +125,111 @@ fi
 
 ---
 
+## ⚠️ Must Read Before Execution: User Confirmation for Write Operations
+
+**Before executing any command that modifies Alibaba Cloud resources, you MUST present the command and its purpose to the user for final confirmation.**
+
+### Command Classification
+
+#### Read-Only Commands (No Confirmation Required)
+
+These commands only query/view information and **do not** modify any cloud resources:
+
+| Command Type | Examples |
+|--------------|----------|
+| Query/List operations | `DescribeInstances`, `DescribeRegions`, `DescribeDBInstances`, `DescribeVpcs`, `list`, `GET` |
+| Help commands | `--help`, `--dryrun`, `--debug` |
+| Plugin listing | `plugin list`, `plugin list-remote`, `plugin search` |
+| Configuration viewing | `configure get`, `configure list` |
+
+#### Write/Modify Commands (Requires Confirmation)
+
+These commands **modify, create, delete, or control cloud resources**:
+
+| Command Type | Examples |
+|--------------|----------|
+| Create operations | `CreateInstance`, `CreateImage`, `CreateBucket`, `upload`, `install` |
+| Start/Stop operations | `StartInstance`, `StopInstance`, `StartInstance`, `RunInstance` |
+| Delete operations | `DeleteInstance`, `DeleteBucket`, `DeleteObject`, `uninstall` |
+| Modify operations | `ModifyInstance`, `UpdateInstance`, `SetInstance`, `update` |
+| Configuration changes | `configure set`, `plugin update` |
+| Data transfer | `ossutil cp`, `ossutil sync` (when uploading/downloading) |
+| Migrate operations | `MigrateInstance`, `TransformInstance` |
+
+### Confirmation SOP Flow
+
+```
+1. Identify command type (read-only vs. write/modify)
+2. If read-only → Execute directly
+3. If write/modify → Present confirmation request to user
+4. Wait for user confirmation
+5. If confirmed → Execute command
+6. If not confirmed → Cancel operation, inform user
+```
+
+### Confirmation Request Format
+
+When asking for user confirmation, use this format:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚠️ 即将执行云资源修改操作
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 命令: <the full command to be executed>
+
+📖 功能介绍: <clear description of what this command does>
+
+⚠️ 影响说明: <what resources will be affected>
+
+例如:
+- 将创建 ECS 实例
+- 将删除 OSS Bucket: my-bucket
+- 将停止 ECS 实例: i-xxxxx
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+请确认是否执行此操作?
+
+[A] 确认执行
+[B] 取消操作
+```
+
+### Confirmation Implementation Example
+
+```bash
+# Example: User wants to stop an ECS instance
+# 1. Present confirmation using ask_user_question tool
+
+# 2. After user confirms, execute the command
+aliyun ecs StopInstance --InstanceId i-xxxxx
+
+# 3. Report result to user
+```
+
+### ask_user_question Tool Usage
+
+```
+Tool: ask_user_question
+Parameters:
+  - question: "确认要停止 ECS 实例 i-xxxxx 吗？此操作将停止实例并可能影响业务。"
+  - options:
+    - label: "确认执行"
+      description: "确认执行此云资源操作"
+    - label: "取消操作"
+      description: "取消本次操作，不执行任何命令"
+```
+
+### Notes
+
+- **Be precise**: Always provide the exact command that will be executed
+- **Explain consequences**: Clearly describe what the command will do to cloud resources
+- **Include resource identifiers**: Mention specific instance IDs, bucket names, etc.
+- **Error handling**: If user cancels, politely acknowledge and stop the operation
+- **Batch operations**: If multiple commands need to be executed, confirm each one or group them logically
+
+---
+
 ## Quick Start
 
 ### 1. Check Environment

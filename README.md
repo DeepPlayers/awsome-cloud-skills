@@ -199,6 +199,18 @@ scripts/
     └── error-check.sh   # Error checking
 ```
 
+## Contributing & Feedback
+
+If you encounter issues or have suggestions for improvement, feel free to:
+
+- Refer to the official documentation: https://help.aliyun.com/zh/cli/quickly-start-using-alibaba-cloud-cli
+- Submit an Issue or Pull Request: https://code.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills
+
+### How to Contribute?
+
+- Contribute SOP workflows you're familiar with, refer to [existing SOP templates](https://alidocs.dingtalk.com/i/nodes/amweZ92PV6DbOdgzUgeYX0rz8xEKBD6p?utm_scene=team_space&iframeQuery=anchorId%3Duu_mn2vjt0m11v08687dx8q)
+- Contribute utility scripts, such as ACS cluster operation scripts
+
 ## License
 
 Apache License 2.0 - see [LICENSE](LICENSE) file for details.

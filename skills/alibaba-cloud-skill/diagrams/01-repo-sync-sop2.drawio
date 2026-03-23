@@ -1,0 +1,128 @@
+<mxfile host="65bd71144e">
+    <diagram name="写操作用户确认SOP" id="write-confirm-sop">
+        <mxGraphModel dx="917" dy="665" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="45" value="开始执行任务" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="306" y="52" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="是 git 仓库?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="296" y="132" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="提示用户 clone 项目&#xa;git clone &lt;远程仓库&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="86" y="137" width="150" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="remote origin&#xa;已配置?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="296" y="232" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="自动添加 remote&#xa;git remote add origin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="86" y="237" width="150" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="URL 不匹配?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="496" y="232" width="120" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="自动更新 remote URL&#xa;git remote set-url" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="656" y="237" width="150" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="git fetch origin&#xa;获取远程更新信息" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="291" y="342" width="150" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="远程有更新?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="296" y="422" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="本地已是最新&#xa;继续执行任务" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="643" y="425" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="本地有未提交修改&#xa;可能冲突?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="296" y="522" width="140" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="⚠️ 跳过 pull&#xa;通知用户手动解决冲突" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="86" y="527" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="git pull origin&#xa;同步远程更新" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+                    <mxGeometry x="496" y="527" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="同步完成&#xa;继续执行任务" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="306" y="632" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="45" target="46">
+                    <mxGeometry x="366" y="102" as="geometry"/>
+                </mxCell>
+                <mxCell id="60" value="否" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="46" target="47">
+                    <mxGeometry x="236" y="167" as="geometry"/>
+                </mxCell>
+                <mxCell id="61" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="46" target="48">
+                    <mxGeometry x="366" y="202" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="未配置" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="48" target="49">
+                    <mxGeometry x="236" y="267" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="已配置" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="48" target="50">
+                    <mxGeometry x="436" y="267" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="是" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="50" target="51">
+                    <mxGeometry x="616" y="267" as="geometry"/>
+                </mxCell>
+                <mxCell id="65" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="49" target="52">
+                    <mxGeometry x="161" y="297" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="161" y="322"/>
+                            <mxPoint x="366" y="322"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="66" value="否" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="50" target="52">
+                    <mxGeometry x="366" y="302" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="556" y="322"/>
+                            <mxPoint x="366" y="322"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="51" target="52">
+                    <mxGeometry x="366" y="297" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="731" y="322"/>
+                            <mxPoint x="366" y="322"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="68" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="52" target="53">
+                    <mxGeometry x="366" y="392" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" value="无更新" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="53" target="54">
+                    <mxGeometry x="436" y="455" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="有更新" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="53" target="55">
+                    <mxGeometry x="366" y="492" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" value="有冲突" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="55" target="56">
+                    <mxGeometry x="246" y="557" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" value="无冲突" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="55" target="57">
+                    <mxGeometry x="436" y="557" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="54" target="58">
+                    <mxGeometry x="366" y="485" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="722" y="612"/>
+                            <mxPoint x="366" y="612"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="74" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="57" target="58">
+                    <mxGeometry x="366" y="587" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="566" y="612"/>
+                            <mxPoint x="366" y="612"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="75" value="① 仓库同步检查 SOP" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1" vertex="1" parent="1">
+                    <mxGeometry x="266" y="12" width="200" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
