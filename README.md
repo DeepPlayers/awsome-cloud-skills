@@ -19,10 +19,10 @@
 A collection of **cloud service operation skills** designed for AI coding assistants. This project organizes CLI operation SOPs, utility scripts, and reference documentation for major cloud providers into standardized skill formats.
 
 **Key Features:**
--️ Standardized skill format compatible with multiple AI IDEs
--🔄-sync mechanism to keep skills up-to-date
--️ Complete reference documentation
--️ Ready-to-use operation scripts
+- Standardized skill format compatible with multiple AI IDEs
+- Sync mechanism to keep skills up-to-date
+- Complete reference documentation
+- Ready-to-use operation scripts
 
 <br/>
 
@@ -77,7 +77,7 @@ cloudskill init --ai qoder --provider alibaba-cloud --path /path/to/project
 
 ## Available Skills
 
-###☁ Alibaba Cloud Skill (alibaba-cloud-skill)
+### Alibaba Cloud Skill (alibaba-cloud-skill)
 
 **Overview:**
 
@@ -125,11 +125,11 @@ aliyun plugin install --names ecs
 
 **SOP Workflows:**
 
-- [ Support Check](skills/alibaba-cloud-skill/diagrams/04-plugin-check-sop.drawio) - Verify CLI support for unlisted products
-- [ Handling](skills/alibaba-cloud-skill/diagrams/05-region-handle-sop.drawio) - Handle queries without specified region
-- [🔄 Sync](skills/alibaba-cloud-skill/diagrams/01-repo-sync-sop.drawio) - Auto-sync mechanism
-- [✅ Write Operation Confirmation](skills/alibaba-cloud-skill/diagrams/02-write-confirm-sop.drawio) - User confirmation for destructive operations
-- [💻 Installation](skills/alibaba-cloud-skill/diagrams/03-cli-install-sop.drawio) - Installation & configuration guide
+- [Plugin Check](skills/alibaba-cloud-skill/diagrams/04-plugin-check-sop.drawio) - Verify CLI support for unlisted products
+- [Region ](skills/alibaba-cloud-skill/diagrams/05-region-handle-sop.drawio) - Handle queries without specified region
+- [Sync](skills/alibaba-cloud-skill/diagrams/01-repo-sync-sop.drawio) - Auto-sync mechanism
+- [Write Operation Confirmation](skills/alibaba-cloud-skill/diagrams/02-write-confirm-sop.drawio) - User confirmation for destructive operations
+- [Installation](skills/alibaba-cloud-skill/diagrams/03-cli-install-sop.drawio) - Installation & configuration guide
 
 **Reference Documentation:**
 
@@ -168,9 +168,9 @@ skills/alibaba-cloud-skill/scripts/
 
 ### Coming Soon
 
--☁ Azure Cloud CLI Skill (In Development)
--🔷 AWS Cloud CLI Skill (Planned)
--☁ Google Cloud CLI Skill (Planned)
+- Azure Cloud CLI Skill (In Development)
+- AWS Cloud CLI Skill (Planned)
+- Google Cloud CLI Skill (Planned)
 
 <br/>
 
