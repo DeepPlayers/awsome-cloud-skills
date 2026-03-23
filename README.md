@@ -1,219 +1,198 @@
-# Awesome cloud skills
+# Awesome Cloud Skills
+
 <p align="center">
   <a href="#quick-start"><strong>Quick Start</strong></a> &middot;
-  <a href="alibaba-cloud-skill/SKILL.md"><strong>Skill Docs</strong></a> &middot;
+  <a href="#available-skills"><strong>Skills</strong></a> &middot;
   <a href="README_ZH.md"><strong>中文文档</strong></a> &middot;
-  <a href="http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills"><strong>GitLab</strong></a> &middot;
-  <a href="alibaba-cloud-skill/references/"><strong>References</strong></a>
+  <a href="https://github.com/RupengWang/awsome-cloud-skills"><strong>GitHub</strong></a>
 </p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue" alt="Apache License 2.0" /></a>
-  <a href="http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills"><img src="https://img.shields.io/badge/GitLab-Repository-orange" alt="GitLab" /></a>
+  <a href="https://github.com/RupengWang/awsome-cloud-skills"><img src="https://img.shields.io/github/stars/RupengWang/awsome-cloud-skills?style=flat" alt="Stars" /></a>
 </p>
-
-<br/>
 
 <br/>
 
 ## What is Awesome Cloud Skills?
 
-A collection of cloud service operation skills, providing CLI operation SOPs, scripts, and reference documentation for major cloud providers.
+A collection of **cloud service operation skills** designed for AI coding assistants. This project organizes CLI operation SOPs, utility scripts, and reference documentation for major cloud providers into standardized skill formats.
 
-## Project Structure
+**Key Features:**
+-ized skill format compatible with multiple AI IDEs
+-🔄-sync mechanism to keep skills up-to-date
+- reference documentation
+- Ready-to-use operation scripts
 
-```
-.
-├── alibaba-cloud-skill/     # Alibaba Cloud Skills
-│   ├── SKILL.md            # Skill definition file
-│   ├── references/         # Reference documentation
-│   └── scripts/            # Operation scripts
-│       ├── ecs/            # ECS instance operations
-│       ├── oss/            # OSS storage operations
-│       └── utils/          # Utility functions
-```
+<br/>
 
-## Alibaba Cloud CLI Skill
+## Quick Start
 
-Provides complete operation SOP for Alibaba Cloud CLI, including:
-
-### Quick Start
+### Install via cloudskill-cli (Recommended)
 
 ```bash
-# Check if installed
-aliyun version
+# Install CLI tool
+npm install -g cloudskill-cli
 
-# macOS installation
-brew install aliyun-cli
+# Install Alibaba Cloud skill to your AI IDE
+cloudskill init --ai qoder --provider alibaba-cloud
 
-# Linux installation
-/bin/bash -c "$(curl -fsSL https://aliyuncli.alicdn.com/install.sh)"
+# Install to global directory
+cloudskill init --ai qoder --provider alibaba-cloud --global
 
-# Configure credentials
-aliyun configure
+# Install to all supported AI IDEs
+cloudskill init --ai all --provider alibaba-cloud
 ```
 
-### Key Features
+**Supported AI IDEs:**
+
+| IDE | Command |
+|-----|---------|
+| Claude Code | `--ai claude` |
+| Qoder | `--ai qoder` |
+| Cursor | `--ai cursor` |
+| Windsurf | `--ai windsurf` |
+| GitHub Copilot | `--ai copilot` |
+| Kiro | `--ai kiro` |
+| Roo Code | `--ai roocode` |
+| Gemini CLI | `--ai gemini` |
+| Trae | `--ai trae` |
+| OpenCode | `--ai opencode` |
+| Continue | `--ai continue` |
+
+**Installation Modes:**
+
+```bash
+# Local (project-specific)
+cloudskill init --ai qoder --provider alibaba-cloud
+
+# Global (user-wide)
+cloudskill init --ai qoder --provider alibaba-cloud --global
+
+# Custom path
+cloudskill init --ai qoder --provider alibaba-cloud --path /path/to/project
+```
+
+<br/>
+
+## Available Skills
+
+###☁ Alibaba Cloud Skill (alibaba-cloud-skill)
+
+**Overview:**
+
+Complete operation SOP for Alibaba Cloud CLI, providing standardized workflows for common cloud resource management tasks.
+
+**Core Features:**
 
 | Feature | Description |
 |---------|-------------|
-| ECS Management | Instance creation, start/stop, image creation, cross-region migration |
-| OSS Operations | Bucket management, file upload/download, directory sync |
-| Credential Management | Multi-credential configuration, RAM roles, environment variables |
-| Output Formatting | JSON/table output, result filtering |
-| Auto Sync | Automatic remote repository update check before skill invocation |
+| ECS Management | Instance lifecycle, image creation, cross-region migration |
+| OSS Operations | Bucket management, file sync, batch upload/download |
+| Credential Management | Multi-profile configuration, RAM roles, environment variables |
+| Output Formatting | JSON/table output, result filtering, pagination |
+| Auto Sync | Automatic repository update check before skill invocation |
 
-### Common Commands
+**Installation & Usage:**
 
 ```bash
+# Via cloudskill-cli (Recommended)
+cloudskill init --ai qoder --provider alibaba-cloud
+
+# Manual installation
+git clone https://github.com/RupengWang/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
+```
+
+**Quick Examples:**
+
+```bash
+# Check CLI version
+aliyun version
+
+# Configure credentials
+aliyun configure
+
 # Query ECS instances
 aliyun ecs DescribeInstances --RegionId cn-hangzhou
 
 # List available plugins
 aliyun plugin list-remote
 
-# Install plugins
+# Install plugin
 aliyun plugin install --names ecs
 ```
 
-### Checking CLI Support for Unlisted Products
+**SOP Workflows:**
 
-When the product you need to operate is not explicitly covered in this skill, or you encounter "command not found" errors, follow this SOP:
+-🔍Plugin Support Check](skills/alibaba-cloud-skill/diagrams/04-plugin-check-sop.drawio) - Verify CLI support for unlisted products
+-Region Handling](skills/alibaba-cloud-skill/diagrams/05-region-handle-sop.drawio) - Handle queries without specified region
+-🔄Repository Sync](skills/alibaba-cloud-skill/diagrams/01-repo-sync-sop.drawio) - Auto-sync mechanism
+- ✅ [Write Operation Confirmation](skills/alibaba-cloud-skill/diagrams/02-write-confirm-sop.drawio) - User confirmation for destructive operations
+-💻CLI Installation](skills/alibaba-cloud-skill/diagrams/03-cli-install-sop.drawio) - Installation & configuration guide
 
-```bash
-# Step 1: Check if the product provides CLI support
-aliyun plugin list-remote
+**Reference Documentation:**
 
-# Step 2: Search for the plugin by product name
-aliyun plugin search <product-keyword>
+- [What is Alibaba Cloud CLI](skills/alibaba-cloud-skill/references/01-what-is-alibaba-cloud-cli/)
+- [Quick Start](skills/alibaba-cloud-skill/references/02-quick-start/)
+- [Installation Guide](skills/alibaba-cloud-skill/references/03-installation-guide/)
+- [Configuration](skills/alibaba-cloud-skill/references/04-configure-alibaba-cloud-cli/)
+- [Usage Guide](skills/alibaba-cloud-skill/references/05-using-alibaba-cloud-cli/)
+- [Best Practices](skills/alibaba-cloud-skill/references/06-best-practices/)
+- [Troubleshooting](skills/alibaba-cloud-skill/references/08-troubleshooting/)
 
-# Step 3: Install the confirmed plugin
-aliyun plugin install --names <plugin-name>
-
-# Step 4: Check supported operations via --help
-aliyun <product-code> --help
-```
-
-**Example - Check DMS product CLI support:**
-
-```bash
-# Search and install DMS plugin
-aliyun plugin search dms
-aliyun plugin install --names dms
-
-# Check available commands
-aliyun dms --help
-```
-
-### Handling Queries Without Specified Region
-
-> **Scope**: This SOP applies to all Alibaba Cloud products that require a RegionId parameter, not limited to ECS.
-
-When a query operation requires a `RegionId` parameter but the customer hasn't specified a region, follow this SOP:
-
-```bash
-# Step 1: Ask the user to confirm the region
-# Inquire which region they want to operate in
-
-# Step 2: If the user is unsure, list available regions (ECS provides universal region listing)
-aliyun ecs DescribeRegions --accept-language en-US
-
-# For other products, use the same ECS interface to get Region list
-aliyun ecs DescribeRegions --output json | jq -r '.Regions.Region[].RegionId'
-```
-
-**Query across multiple regions:**
-
-```bash
-# Get all available regions
-REGIONS=$(aliyun ecs DescribeRegions --output json | jq -r '.Regions.Region[].RegionId')
-
-# Iterate through each region
-for REGION in $REGIONS; do
-    echo "=== Region: $REGION ==="
-    # RDS instance query example
-    aliyun rds DescribeDBInstances --RegionId "$REGION"
-done
-```
-
-**Examples for different products:**
-
-```bash
-# ECS instances
-aliyun ecs DescribeInstances --RegionId cn-hangzhou --output table
-
-# RDS instances
-aliyun rds DescribeDBInstances --RegionId cn-hangzhou --output table
-
-# VPC resources
-aliyun vpc DescribeVpcs --RegionId cn-hangzhou --output table
-```
-
-## Auto Sync Mechanism
-
-When an Agent invokes this skill, it automatically checks for remote repository updates:
-
-- Remote repository: `http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills.git`
-- Auto-configures remote repository (if not configured)
-- Auto-syncs latest updates (if no conflicts)
-- Skips sync and alerts user on conflicts
-
-See the "Pre-execution: Repository Sync Check" section in [alibaba-cloud-skill/SKILL.md](alibaba-cloud-skill/SKILL.md).
-
-## Reference Documentation
-
-Detailed documentation is located in the `alibaba-cloud-skill/references/` directory:
-
-- [What is Alibaba Cloud CLI](alibaba-cloud-skill/references/01-what-is-alibaba-cloud-cli/)
-- [Quick Start](alibaba-cloud-skill/references/02-quick-start/)
-- [Installation Guide](alibaba-cloud-skill/references/03-installation-guide/)
-- [Configure Alibaba Cloud CLI](alibaba-cloud-skill/references/04-configure-alibaba-cloud-cli/)
-- [Using Alibaba Cloud CLI](alibaba-cloud-skill/references/05-using-alibaba-cloud-cli/)
-- [Best Practices](alibaba-cloud-skill/references/06-best-practices/)
-- [Troubleshooting](alibaba-cloud-skill/references/08-troubleshooting/)
-
-## Scripts
-
-Operation scripts are located in the `alibaba-cloud-skill/scripts/` directory:
+**Utility Scripts:**
 
 ```
-scripts/
-├── install.sh           # CLI installation script
-├── configure.sh         # Credential configuration script
-├── ecs/
-│   ├── list-instances.sh    # List instances
-│   ├── create-instance.sh   # Create instance
-│   ├── start-instance.sh    # Start instance
-│   ├── stop-instance.sh     # Stop instance
-│   ├── create-image.sh      # Create image
-│   └── migrate-instance.sh  # Cross-region migration
-├── oss/
-│   ├── bucket-ops.sh    # Bucket operations
-│   ├── upload.sh        # Upload files
-│   ├── download.sh      # Download files
-│   └── sync.sh          # Sync directory
-└── utils/
-    ├── sync-repo.sh     # Repository sync check (execute first)
-    ├── output-format.sh # Output formatting
-    ├── waiter.sh        # Wait utility
-    └── error-check.sh   # Error checking
+skills/alibaba-cloud-skill/scripts/
+├ install.sh              # CLI installation
+├ configure.sh            # Credential configuration
+├ ecs/                    # ECS operations
+│   ├── list-instances.sh
+│   ├── create-instance.sh
+│   ├── start-instance.sh
+│   ├── stop-instance.sh
+│   ├── create-image.sh
+│  └ migrate-instance.sh
+├ oss/                    # OSS operations
+│   ├── bucket-ops.sh
+│   ├── upload.sh
+│   ├── download.sh
+│  └ sync.sh
+└ utils/                  # Utilities
+    ├── sync-repo.sh        # Repository sync check
+    ├── output-format.sh    # Output formatting
+    ├── waiter.sh           # Wait utility
+   └ error-check.sh      # Error checking
 ```
+
+### Coming Soon
+
+-☁ AWS CLI Skill (In Development)
+-🔷 CLI Skill (Planned)
+- Cloud CLI Skill (Planned)
+
+<br/>
 
 ## Contributing & Feedback
 
 If you encounter issues or have suggestions for improvement, feel free to:
 
 - Refer to the official documentation: https://help.aliyun.com/zh/cli/quickly-start-using-alibaba-cloud-cli
-- Submit an Issue or Pull Request: https://code.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills
+- Submit an Issue or Pull Request: https://github.com/RupengWang/awsome-cloud-skills
 
 ### How to Contribute?
 
 - Contribute SOP workflows you're familiar with, refer to [existing SOP templates](skills/alibaba-cloud-skill/diagrams/)
 - Contribute utility scripts, such as ACS cluster operation scripts
 
+<br/>
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=RupengWang/awsome-cloud-skills&type=Date)](https://star-history.com/#RupengWang/awsome-cloud-skills&Date)
+
+<br/>
 
 ## License
 
