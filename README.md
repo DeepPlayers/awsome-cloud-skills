@@ -114,6 +114,34 @@ cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 
 ---
 
+### 📊 Bailian Report Query Skill
+
+**Directory:** `skills/bailian-report-query/`
+
+Query Bailian platform report data through ChatBI Open API for model usage metrics and statistics.
+
+**Core Features:**
+- 📈 Model invocation metrics (token usage)
+- 📊 Invocation counts, success rates, status code distribution
+- 🔍 Filter and aggregate by user, model, time dimensions
+- 📉 Success rate trends, throttling analysis, gateway statistics
+- ⚡ Async query with automatic session management
+
+**Supported Reports:**
+- Report 1: User Model Invocation Metrics (pageId=1315847)
+- Report 2: User Model Invocation Counts - Daily (pageId=1706516)
+
+**Installation:**
+```bash
+# Clone and copy to your AI IDE
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/bailian-report-query ~/.qoder/skills/
+```
+
+**Learn More:** [Bailian Report Skill README](skills/bailian-report-query/README.md)
+
+---
+
 ### Coming Soon
 
 - 🟦 Azure Cloud CLI Skill (In Development)
@@ -133,11 +161,16 @@ awsome-cloud-skills/
 │   │   ├── diagrams/            # SOP workflow diagrams
 │   │   ├── references/          # Reference documentation
 │   │   └── scripts/             # Utility scripts
-│   └── dingdoc_knowledge_search/  # DingTalk knowledge search
+│   ├── dingdoc_knowledge_search/  # DingTalk knowledge search
+│   │   ├── SKILL.md
+│   │   ├── README.md
+│   │   ├── config.json
+│   │   └── examples.md
+│   └── bailian-report-query/    # Bailian platform reports
 │       ├── SKILL.md
 │       ├── README.md
-│       ├── config.json
-│       └── examples.md
+│       ├── config.yaml
+│       └── scripts/             # Query scripts
 ├── README.md                    # Project overview (English)
 ├── README_ZH.md                 # Project overview (Chinese)
 └── LICENSE                      # Apache 2.0 License

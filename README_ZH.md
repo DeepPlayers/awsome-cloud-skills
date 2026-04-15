@@ -114,6 +114,34 @@ cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 
 ---
 
+### 📊 百炼平台报表查询技能
+
+**目录：** `skills/bailian-report-query/`
+
+通过 ChatBI 开放 API 查询百炼平台报表数据，获取模型用量指标和统计信息。
+
+**核心功能：**
+- 📈 模型调用量统计（token 用量）
+- 📊 调用次数、成功率、状态码分布
+- 🔍 按用户、模型、时间维度筛选和聚合
+- 📉 成功率趋势、限流情况、网关统计
+- ⚡ 异步查询，自动会话管理
+
+**支持的报表：**
+- 报表 1：用户模型调用计量（pageId=1315847）
+- 报表 2：用户模型调用次数-日（pageId=1706516）
+
+**安装：**
+```bash
+# 克隆并复制到你的 AI IDE
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/bailian-report-query ~/.qoder/skills/
+```
+
+**了解更多：** [百炼报表技能 README](skills/bailian-report-query/README.md)
+
+---
+
 ### 即将推出
 
 - 🟦 Azure Cloud CLI 技能（开发中）
@@ -133,11 +161,16 @@ awsome-cloud-skills/
 │   │   ├── diagrams/            # SOP 工作流程图
 │   │   ├── references/          # 参考文档
 │   │   └── scripts/             # 实用脚本
-│   └── dingdoc_knowledge_search/  # 钉钉知识库搜索
+│   ├── dingdoc_knowledge_search/  # 钉钉知识库搜索
+│   │   ├── SKILL.md
+│   │   ├── README.md
+│   │   ├── config.json
+│   │   └── examples.md
+│   └── bailian-report-query/    # 百炼平台报表查询
 │       ├── SKILL.md
 │       ├── README.md
-│       ├── config.json
-│       └── examples.md
+│       ├── config.yaml
+│       └── scripts/             # 查询脚本
 ├── README.md                    # 项目概览（英文）
 ├── README_ZH.md                 # 项目概览（中文）
 └── LICENSE                      # Apache 2.0 许可证

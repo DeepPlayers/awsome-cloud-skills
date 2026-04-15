@@ -1,0 +1,28 @@
+# ChatBI 配置文件
+
+# 服务域名（可选，默认从接口获取）
+server_domain: https://fbi.alibaba-inc.com
+
+# 认证配置（可选，默认从 FBI 接口动态获取）
+# 注意：以下字段会优先从以下来源获取（按优先级）：
+# 1. FBI 接口：https://fbi.alibaba-inc.com/ai/FbiCopilotAssistantAction/queryChatBISkillProperty
+# 2. 环境变量（当 use_env_property=true 时）
+# 3. 本地配置文件（本文件，作为降级方案）
+#
+# 如果已登录 FBI 系统，以下字段可留空，系统会自动从接口获取
+app_name: ""          # 应用名称（留空则从 FBI 接口获取）
+app_secret: ""        # 应用密钥（留空则从 FBI 接口获取）
+emp_id: ""            # 员工 ID（留空则从 FBI 接口获取）
+assistant_id: ""      # 助手 ID（留空则从 FBI 接口获取）
+model: ""             # 模型名称（可选，留空则使用默认）
+
+# 查询模式：quick（极速模式，result_format 强制为 json）、think（思考模式）
+query_mode: think
+# 结果展示格式：markdown（默认）或 json（结构化数据输出）
+result_format: markdown
+
+# 属性路由配置
+use_env_property: false  # 是否使用环境变量读取认证信息
+
+# 灰度环境配置
+isGrayEnv: false         # 是否使用灰度环境
