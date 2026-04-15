@@ -16,13 +16,14 @@
 
 ## 什么是 Awesome Cloud Skills？
 
-专为 AI 编程助手设计的**云服务操作技能集合**。本项目将主流云厂商的 CLI 操作 SOP、实用脚本和参考文档整理成标准化的技能格式。
+专为 AI 编程助手设计的**云服务与生产力工具技能集合**。本项目将云厂商 CLI 操作、知识库搜索等功能整理成标准化的技能格式。
 
 **核心特性：**
--️ 标准化技能格式，兼容多种 AI IDE
--🔄机制，保持技能最新
--️ 完整的参考文档
--️ 开箱即用的操作脚本
+- 📦 标准化技能格式，兼容多种 AI IDE
+- 🔄 自动同步机制，保持技能最新
+- 📚 每个技能包含完整的参考文档
+- 🛠️ 开箱即用的操作脚本
+- 🎯 智能意图识别和精准过滤
 
 <br/>
 
@@ -34,14 +35,21 @@
 # 安装 CLI 工具
 npm install -g cloudskill-cli
 
-# 安装阿里云技能到你的 AI IDE
-cloudskill init --ai qoder --provider alibaba-cloud
+# 查看可用技能
+cloudskill list
 
-# 安装到全局目录
-cloudskill init --ai qoder --provider alibaba-cloud --global
+# 安装指定技能
+cloudskill init --ai qoder --provider <skill-name>
+```
 
-# 安装到所有支持的 AI IDE
-cloudskill init --ai all --provider alibaba-cloud
+### 手动安装
+
+```bash
+# 克隆仓库
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+
+# 复制所需技能到你的 AI IDE
+cp -r awsome-cloud-skills/skills/<skill-name> ~/.qoder/skills/
 ```
 
 **支持的 AI IDE：**
@@ -60,131 +68,114 @@ cloudskill init --ai all --provider alibaba-cloud
 | OpenCode | `--ai opencode` |
 | Continue | `--ai continue` |
 
-**安装模式：**
-
-```bash
-# 本地安装（项目级）
-cloudskill init --ai qoder --provider alibaba-cloud
-
-# 全局安装（用户级）
-cloudskill init --ai qoder --provider alibaba-cloud --global
-
-# 自定义路径
-cloudskill init --ai qoder --provider alibaba-cloud --path /path/to/project
-```
-
 <br/>
 
 ## 可用技能
 
-###☁阿里云技能 (alibaba-cloud-skill)
+### ☁️ 阿里云 CLI 技能
 
-**概述：**
+**目录：** `skills/alibaba-cloud-skill/`
 
 完整的阿里云 CLI 操作 SOP，提供常见云资源管理的标准化工作流程。
 
 **核心功能：**
+- ECS 生命周期管理、镜像制作、跨地域迁移
+- OSS Bucket 管理、文件同步、批量上传下载
+- 多凭证配置、RAM 角色管理
+- JSON/表格输出格式化、结果过滤
+- 技能调用前自动检查仓库更新
 
-| 功能 | 说明 |
-|------|------|
-| ECS 管理 | 实例生命周期、镜像制作、跨地域迁移 |
-| OSS 操作 | Bucket 管理、文件同步、批量上传下载 |
-| 凭证管理 | 多凭证配置、RAM 角色、环境变量 |
-| 输出格式化 | JSON/表格输出、结果过滤、分页 |
-| 自动同步 | 技能调用前自动检查仓库更新 |
-
-**安装与使用：**
-
+**安装：**
 ```bash
-# 通过 cloudskill-cli 安装（推荐）
 cloudskill init --ai qoder --provider alibaba-cloud
-
-# 手动安装
-git clone https://github.com/RupengWang/awsome-cloud-skills.git
-cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
 ```
 
-**快速示例：**
+**了解更多：** [阿里云技能 README](skills/alibaba-cloud-skill/README.md)
 
+---
+
+### 🔍 钉钉知识库智能检索技能
+
+**目录：** `skills/dingdoc_knowledge_search/`
+
+智能搜索钉钉知识库文档，通过意图识别和权重过滤提升准确率。
+
+**核心功能：**
+- 🧠 意图识别：自动识别核心实体和操作条件
+- 🎯 权重关键词策略：区分主次关键词，避免无效聚合
+- 🔎 智能过滤搜索：先搜核心词，再用条件词过滤
+- 📊 相关性评分：多维度评分提升准确率
+- 📝 自动保存：结果超过 10 篇时自动保存为 Markdown
+- 🛡️ 环境检查：自动检测 MCP Server 安装状态
+
+**版本：** V3.0.0（最新）
+**准确率：** 90%+（从 V2 的 70% 提升）
+
+**安装：**
 ```bash
-# 检查 CLI 版本
-aliyun version
-
-# 配置凭证
-aliyun configure
-
-# 查询 ECS 实例
-aliyun ecs DescribeInstances --RegionId cn-hangzhou
-
-# 查看可用插件
-aliyun plugin list-remote
-
-# 安装插件
-aliyun plugin install --names ecs
+# 手动安装
+cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 ```
 
-**SOP 工作流程：**
+**了解更多：** [钉钉知识库技能 README](skills/dingdoc_knowledge_search/README.md)
 
-- [支持检查](skills/alibaba-cloud-skill/diagrams/04-plugin-check-sop.drawio) - 验证未列出产品的 CLI 支持
-- [处理](skills/alibaba-cloud-skill/diagrams/05-region-handle-sop.drawio) - 处理未指定区域的查询
-- [🔄同步](skills/alibaba-cloud-skill/diagrams/01-repo-sync-sop.drawio) - 自动同步机制
-- [✅ 写操作确认](skills/alibaba-cloud-skill/diagrams/02-write-confirm-sop.drawio) - 危险操作的用户确认
-- [💻安装](skills/alibaba-cloud-skill/diagrams/03-cli-install-sop.drawio) - 安装与配置指南
-
-**参考文档：**
-
-- [什么是阿里云 CLI](skills/alibaba-cloud-skill/references/zh/01-什么是阿里云CLI/)
-- [快速入门](skills/alibaba-cloud-skill/references/zh/02-快速入门/)
-- [安装指南](skills/alibaba-cloud-skill/references/zh/03-安装指南/)
-- [配置指南](skills/alibaba-cloud-skill/references/zh/04-配置阿里云CLI/)
-- [使用指南](skills/alibaba-cloud-skill/references/zh/05-使用阿里云CLI/)
-- [最佳实践](skills/alibaba-cloud-skill/references/zh/06-最佳实践/)
-- [错误排查](skills/alibaba-cloud-skill/references/zh/08-错误排查/)
-
-**实用脚本：**
-
-```
-skills/alibaba-cloud-skill/scripts/
-├.sh              # CLI 安装
-├.sh            # 凭证配置
-├/                    # ECS 操作
-│   ├── list-instances.sh
-│   ├── create-instance.sh
-│   ├── start-instance.sh
-│   ├── stop-instance.sh
-│   ├── create-image.sh
-│ └-instance.sh
-├/                    # OSS 操作
-│   ├── bucket-ops.sh
-│   ├── upload.sh
-│   ├── download.sh
-│ └.sh
-└/                  # 工具函数
-    ├── sync-repo.sh        # 仓库同步检查
-    ├── output-format.sh    # 输出格式化
-    ├── waiter.sh           # 等待工具
-  └-check.sh      # 错误检查
-```
+---
 
 ### 即将推出
 
--☁ CLI 技能（开发中）
-- CLI 技能（计划中）
--☁ Cloud CLI 技能（计划中）
+- 🟦 Azure Cloud CLI 技能（开发中）
+- 🟧 AWS Cloud CLI 技能（计划中）
+- 🟩 Google Cloud CLI 技能（计划中）
+
+<br/>
+
+## 项目结构
+
+```
+awsome-cloud-skills/
+├── skills/                      # 所有可用技能
+│   ├── alibaba-cloud-skill/     # 阿里云 CLI 操作
+│   │   ├── SKILL.md
+│   │   ├── README.md
+│   │   ├── diagrams/            # SOP 工作流程图
+│   │   ├── references/          # 参考文档
+│   │   └── scripts/             # 实用脚本
+│   └── dingdoc_knowledge_search/  # 钉钉知识库搜索
+│       ├── SKILL.md
+│       ├── README.md
+│       ├── config.json
+│       └── examples.md
+├── cloudskill-cli/              # 技能安装 CLI 工具
+├── README.md                    # 项目概览（英文）
+├── README_ZH.md                 # 项目概览（中文）
+└── LICENSE                      # Apache 2.0 许可证
+```
 
 <br/>
 
 ## 贡献与反馈
 
-如果您在使用过程中遇到问题或有改进建议，欢迎：
-
-- 参考官方文档：https://help.aliyun.com/zh/cli/quickly-start-using-alibaba-cloud-cli
-- 提交 Issue 或 Pull Request：https://github.com/RupengWang/awsome-cloud-skills
+我们欢迎贡献和反馈！
 
 ### 如何贡献？
 
-- 贡献您熟悉的 SOP 流程，参考[现有的 SOP 模板](skills/alibaba-cloud-skill/diagrams/)
-- 贡献实用的 Scripts 工具脚本，比如 ACS 集群运维脚本等
+- 📝 贡献您熟悉的 SOP 流程
+- 🛠️ 贡献实用脚本（如集群运维脚本）
+- 📚 改进参考文档
+- 🐛 报告问题和 Bug
+
+### 贡献指南
+
+1. 参考现有的 [SOP 模板](skills/alibaba-cloud-skill/diagrams/) 了解格式
+2. 遵循标准技能结构（SKILL.md + README.md）
+3. 尽可能包含参考文档和示例
+4. 通过 Pull Request 提交
+
+### 反馈渠道
+
+- 📖 官方文档：https://help.aliyun.com/zh/cli/quickly-start-using-alibaba-cloud-cli
+- 🐛 提交 Issue：https://github.com/RupengWang/awsome-cloud-skills
+- 💡 Pull Request：https://github.com/RupengWang/awsome-cloud-skills
 
 <br/>
 

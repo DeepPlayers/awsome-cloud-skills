@@ -16,13 +16,14 @@
 
 ## What is Awesome Cloud Skills?
 
-A collection of **cloud service operation skills** designed for AI coding assistants. This project organizes CLI operation SOPs, utility scripts, and reference documentation for major cloud providers into standardized skill formats.
+A collection of **AI agent skills** for cloud services and productivity tools. This project provides standardized skill formats for cloud CLI operations, knowledge base search, and more.
 
 **Key Features:**
-- Standardized skill format compatible with multiple AI IDEs
-- Sync mechanism to keep skills up-to-date
-- Complete reference documentation
-- Ready-to-use operation scripts
+- 📦 Standardized skill format compatible with multiple AI IDEs
+- 🔄 Auto-sync mechanism to keep skills up-to-date
+- 📚 Complete reference documentation for each skill
+- 🛠️ Ready-to-use operation scripts
+- 🎯 Intent recognition and smart filtering
 
 <br/>
 
@@ -34,14 +35,21 @@ A collection of **cloud service operation skills** designed for AI coding assist
 # Install CLI tool
 npm install -g cloudskill-cli
 
-# Install Alibaba Cloud skill to your AI IDE
-cloudskill init --ai qoder --provider alibaba-cloud
+# List available skills
+cloudskill list
 
-# Install to global directory
-cloudskill init --ai qoder --provider alibaba-cloud --global
+# Install a specific skill
+cloudskill init --ai qoder --provider <skill-name>
+```
 
-# Install to all supported AI IDEs
-cloudskill init --ai all --provider alibaba-cloud
+### Manual Installation
+
+```bash
+# Clone the repository
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+
+# Copy desired skill to your AI IDE
+cp -r awsome-cloud-skills/skills/<skill-name> ~/.qoder/skills/
 ```
 
 **Supported AI IDEs:**
@@ -60,131 +68,114 @@ cloudskill init --ai all --provider alibaba-cloud
 | OpenCode | `--ai opencode` |
 | Continue | `--ai continue` |
 
-**Installation Modes:**
-
-```bash
-# Local (project-specific)
-cloudskill init --ai qoder --provider alibaba-cloud
-
-# Global (user-wide)
-cloudskill init --ai qoder --provider alibaba-cloud --global
-
-# Custom path
-cloudskill init --ai qoder --provider alibaba-cloud --path /path/to/project
-```
-
 <br/>
 
 ## Available Skills
 
-### Alibaba Cloud Skill (alibaba-cloud-skill)
+### ☁️ Alibaba Cloud CLI Skill
 
-**Overview:**
+**Directory:** `skills/alibaba-cloud-skill/`
 
 Complete operation SOP for Alibaba Cloud CLI, providing standardized workflows for common cloud resource management tasks.
 
 **Core Features:**
+- ECS lifecycle management, image creation, cross-region migration
+- OSS bucket management, file sync, batch upload/download
+- Multi-profile credential configuration, RAM roles
+- JSON/table output formatting, result filtering
+- Auto-sync mechanism before skill invocation
 
-| Feature | Description |
-|---------|-------------|
-| ECS Management | Instance lifecycle, image creation, cross-region migration |
-| OSS Operations | Bucket management, file sync, batch upload/download |
-| Credential Management | Multi-profile configuration, RAM roles, environment variables |
-| Output Formatting | JSON/table output, result filtering, pagination |
-| Auto Sync | Automatic repository update check before skill invocation |
-
-**Installation & Usage:**
-
+**Installation:**
 ```bash
-# Via cloudskill-cli (Recommended)
 cloudskill init --ai qoder --provider alibaba-cloud
-
-# Manual installation
-git clone https://github.com/RupengWang/awsome-cloud-skills.git
-cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
 ```
 
-**Quick Examples:**
+**Learn More:** [Alibaba Cloud Skill README](skills/alibaba-cloud-skill/README.md)
 
+---
+
+### 🔍 DingDoc Knowledge Search Skill
+
+**Directory:** `skills/dingdoc_knowledge_search/`
+
+Intelligent search for DingTalk knowledge base with intent recognition and weighted filtering.
+
+**Core Features:**
+- 🧠 Intent recognition: Identifies core entities and operation conditions
+- 🎯 Weighted keyword strategy: Distinguishes primary and secondary keywords
+- 🔎 Smart filtering: Search core terms first, then filter with conditions
+- 📊 Relevance scoring: Multi-dimensional scoring for accuracy
+- 📝 Auto-save: Automatically saves results as Markdown when > 10 docs
+- 🛡️ Environment check: Auto-detects MCP Server installation
+
+**Version:** V3.0.0 (Latest)
+**Accuracy:** 90%+ (Improved from 70% in V2)
+
+**Installation:**
 ```bash
-# Check CLI version
-aliyun version
-
-# Configure credentials
-aliyun configure
-
-# Query ECS instances
-aliyun ecs DescribeInstances --RegionId cn-hangzhou
-
-# List available plugins
-aliyun plugin list-remote
-
-# Install plugin
-aliyun plugin install --names ecs
+# Manual installation
+cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 ```
 
-**SOP Workflows:**
+**Learn More:** [DingDoc Skill README](skills/dingdoc_knowledge_search/README.md)
 
-- [Plugin Check](skills/alibaba-cloud-skill/diagrams/04-plugin-check-sop.drawio) - Verify CLI support for unlisted products
-- [Region ](skills/alibaba-cloud-skill/diagrams/05-region-handle-sop.drawio) - Handle queries without specified region
-- [Sync](skills/alibaba-cloud-skill/diagrams/01-repo-sync-sop.drawio) - Auto-sync mechanism
-- [Write Operation Confirmation](skills/alibaba-cloud-skill/diagrams/02-write-confirm-sop.drawio) - User confirmation for destructive operations
-- [Installation](skills/alibaba-cloud-skill/diagrams/03-cli-install-sop.drawio) - Installation & configuration guide
-
-**Reference Documentation:**
-
-- [What is Alibaba Cloud CLI](skills/alibaba-cloud-skill/references/01-what-is-alibaba-cloud-cli/)
-- [Quick Start](skills/alibaba-cloud-skill/references/02-quick-start/)
-- [Installation Guide](skills/alibaba-cloud-skill/references/03-installation-guide/)
-- [Configuration](skills/alibaba-cloud-skill/references/04-configure-alibaba-cloud-cli/)
-- [Usage Guide](skills/alibaba-cloud-skill/references/05-using-alibaba-cloud-cli/)
-- [Best Practices](skills/alibaba-cloud-skill/references/06-best-practices/)
-- [Troubleshooting](skills/alibaba-cloud-skill/references/08-troubleshooting/)
-
-**Utility Scripts:**
-
-```
-skills/alibaba-cloud-skill/scripts/
-├ install.sh              # CLI installation
-├ configure.sh            # Credential configuration
-├ ecs/                    # ECS operations
-│   ├── list-instances.sh
-│   ├── create-instance.sh
-│   ├── start-instance.sh
-│   ├── stop-instance.sh
-│   ├── create-image.sh
-│  └ migrate-instance.sh
-├ oss/                    # OSS operations
-│   ├── bucket-ops.sh
-│   ├── upload.sh
-│   ├── download.sh
-│  └ sync.sh
-└ utils/                  # Utilities
-    ├── sync-repo.sh        # Repository sync check
-    ├── output-format.sh    # Output formatting
-    ├── waiter.sh           # Wait utility
-   └ error-check.sh      # Error checking
-```
+---
 
 ### Coming Soon
 
-- Azure Cloud CLI Skill (In Development)
-- AWS Cloud CLI Skill (Planned)
-- Google Cloud CLI Skill (Planned)
+- 🟦 Azure Cloud CLI Skill (In Development)
+- 🟧 AWS Cloud CLI Skill (Planned)
+- 🟩 Google Cloud CLI Skill (Planned)
+
+<br/>
+
+## Project Structure
+
+```
+awsome-cloud-skills/
+├── skills/                      # All available skills
+│   ├── alibaba-cloud-skill/     # Alibaba Cloud CLI operations
+│   │   ├── SKILL.md
+│   │   ├── README.md
+│   │   ├── diagrams/            # SOP workflow diagrams
+│   │   ├── references/          # Reference documentation
+│   │   └── scripts/             # Utility scripts
+│   └── dingdoc_knowledge_search/  # DingTalk knowledge search
+│       ├── SKILL.md
+│       ├── README.md
+│       ├── config.json
+│       └── examples.md
+├── cloudskill-cli/              # CLI tool for skill installation
+├── README.md                    # Project overview (English)
+├── README_ZH.md                 # Project overview (Chinese)
+└── LICENSE                      # Apache 2.0 License
+```
 
 <br/>
 
 ## Contributing & Feedback
 
-If you encounter issues or have suggestions for improvement, feel free to:
-
-- Refer to the official documentation: https://help.aliyun.com/zh/cli/quickly-start-using-alibaba-cloud-cli
-- Submit an Issue or Pull Request: https://github.com/RupengWang/awsome-cloud-skills
+We welcome contributions and feedback!
 
 ### How to Contribute?
 
-- Contribute SOP workflows you're familiar with, refer to [existing SOP templates](skills/alibaba-cloud-skill/diagrams/)
-- Contribute utility scripts, such as ACS cluster operation scripts
+- 📝 Contribute SOP workflows you're familiar with
+- 🛠️ Contribute utility scripts (e.g., cluster operation scripts)
+- 📚 Improve reference documentation
+- 🐛 Report issues and bugs
+
+### Contribution Guidelines
+
+1. Refer to existing [SOP templates](skills/alibaba-cloud-skill/diagrams/) for format
+2. Follow the standard skill structure (SKILL.md + README.md)
+3. Include reference documentation and examples when possible
+4. Submit via Pull Request
+
+### Feedback Channels
+
+- 📖 Official Documentation: https://help.aliyun.com/zh/cli/quickly-start-using-alibaba-cloud-cli
+- 🐛 Submit Issue: https://github.com/RupengWang/awsome-cloud-skills
+- 💡 Pull Request: https://github.com/RupengWang/awsome-cloud-skills
 
 <br/>
 
