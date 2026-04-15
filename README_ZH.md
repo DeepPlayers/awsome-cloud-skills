@@ -29,19 +29,6 @@
 
 ## 快速开始
 
-### 使用 cloudskill-cli 安装（推荐）
-
-```bash
-# 安装 CLI 工具
-npm install -g cloudskill-cli
-
-# 查看可用技能
-cloudskill list
-
-# 安装指定技能
-cloudskill init --ai qoder --provider <skill-name>
-```
-
 ### 手动安装
 
 ```bash
@@ -52,21 +39,24 @@ git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/<skill-name> ~/.qoder/skills/
 ```
 
+**示例 - 安装阿里云技能：**
+```bash
+cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
+```
+
+**示例 - 安装钉钉知识库技能：**
+```bash
+cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
+```
+
 **支持的 AI IDE：**
 
-| IDE | 命令 |
-|-----|------|
-| Claude Code | `--ai claude` |
-| Qoder | `--ai qoder` |
-| Cursor | `--ai cursor` |
-| Windsurf | `--ai windsurf` |
-| GitHub Copilot | `--ai copilot` |
-| Kiro | `--ai kiro` |
-| Roo Code | `--ai roocode` |
-| Gemini CLI | `--ai gemini` |
-| Trae | `--ai trae` |
-| OpenCode | `--ai opencode` |
-| Continue | `--ai continue` |
+| IDE | 技能目录 |
+|-----|----------|
+| Qoder | `~/.qoder/skills/` |
+| Claude Code | `~/.claude/skills/` |
+| Cursor | `~/.cursor/skills/` |
+| Windsurf | `~/.codeium/skills/` |
 
 <br/>
 
@@ -87,7 +77,9 @@ cp -r awsome-cloud-skills/skills/<skill-name> ~/.qoder/skills/
 
 **安装：**
 ```bash
-cloudskill init --ai qoder --provider alibaba-cloud
+# 克隆并复制到你的 AI IDE
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
 ```
 
 **了解更多：** [阿里云技能 README](skills/alibaba-cloud-skill/README.md)
@@ -113,7 +105,8 @@ cloudskill init --ai qoder --provider alibaba-cloud
 
 **安装：**
 ```bash
-# 手动安装
+# 克隆并复制到你的 AI IDE
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 ```
 
@@ -145,7 +138,6 @@ awsome-cloud-skills/
 │       ├── README.md
 │       ├── config.json
 │       └── examples.md
-├── cloudskill-cli/              # 技能安装 CLI 工具
 ├── README.md                    # 项目概览（英文）
 ├── README_ZH.md                 # 项目概览（中文）
 └── LICENSE                      # Apache 2.0 许可证

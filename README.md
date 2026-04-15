@@ -29,19 +29,6 @@ A collection of **AI agent skills** for cloud services and productivity tools. T
 
 ## Quick Start
 
-### Install via cloudskill-cli (Recommended)
-
-```bash
-# Install CLI tool
-npm install -g cloudskill-cli
-
-# List available skills
-cloudskill list
-
-# Install a specific skill
-cloudskill init --ai qoder --provider <skill-name>
-```
-
 ### Manual Installation
 
 ```bash
@@ -52,21 +39,24 @@ git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/<skill-name> ~/.qoder/skills/
 ```
 
+**Example - Install Alibaba Cloud Skill:**
+```bash
+cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
+```
+
+**Example - Install DingDoc Knowledge Search Skill:**
+```bash
+cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
+```
+
 **Supported AI IDEs:**
 
-| IDE | Command |
-|-----|---------|
-| Claude Code | `--ai claude` |
-| Qoder | `--ai qoder` |
-| Cursor | `--ai cursor` |
-| Windsurf | `--ai windsurf` |
-| GitHub Copilot | `--ai copilot` |
-| Kiro | `--ai kiro` |
-| Roo Code | `--ai roocode` |
-| Gemini CLI | `--ai gemini` |
-| Trae | `--ai trae` |
-| OpenCode | `--ai opencode` |
-| Continue | `--ai continue` |
+| IDE | Skills Directory |
+|-----|------------------|
+| Qoder | `~/.qoder/skills/` |
+| Claude Code | `~/.claude/skills/` |
+| Cursor | `~/.cursor/skills/` |
+| Windsurf | `~/.codeium/skills/` |
 
 <br/>
 
@@ -87,7 +77,9 @@ Complete operation SOP for Alibaba Cloud CLI, providing standardized workflows f
 
 **Installation:**
 ```bash
-cloudskill init --ai qoder --provider alibaba-cloud
+# Clone and copy to your AI IDE
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
 ```
 
 **Learn More:** [Alibaba Cloud Skill README](skills/alibaba-cloud-skill/README.md)
@@ -113,7 +105,8 @@ Intelligent search for DingTalk knowledge base with intent recognition and weigh
 
 **Installation:**
 ```bash
-# Manual installation
+# Clone and copy to your AI IDE
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 ```
 
@@ -145,7 +138,6 @@ awsome-cloud-skills/
 │       ├── README.md
 │       ├── config.json
 │       └── examples.md
-├── cloudskill-cli/              # CLI tool for skill installation
 ├── README.md                    # Project overview (English)
 ├── README_ZH.md                 # Project overview (Chinese)
 └── LICENSE                      # Apache 2.0 License

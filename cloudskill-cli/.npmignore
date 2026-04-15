@@ -1,6 +1,0 @@
-src/
-*.ts
-tsconfig.json
-.gitignore
-*.md
-!</.npmignore
