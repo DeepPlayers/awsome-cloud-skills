@@ -16,14 +16,13 @@
 
 ## What is Awesome Cloud Skills?
 
-A collection of **AI agent skills** for cloud services and productivity tools. This project provides standardized skill formats for cloud CLI operations, knowledge base search, AI video generation, and Prompt optimization.
+A collection of **AI agent skills** for cloud services and productivity tools. This project provides standardized skill formats for cloud CLI operations, AI video generation, and Prompt optimization.
 
 **Key Features:**
 - 📦 Standardized skill format compatible with multiple AI IDEs
 - 🔄 Auto-sync mechanism to keep skills up-to-date
 - 📚 Complete reference documentation for each skill
 - 🛠️ Ready-to-use operation scripts
-- 🎯 Intent recognition and smart filtering
 
 <br/>
 
@@ -44,7 +43,7 @@ cp -r awsome-cloud-skills/skills/<skill-name> ~/.qoder/skills/
 cp -r awsome-cloud-skills/skills/alibaba-cloud-cli ~/.qoder/skills/
 ```
 
-**Example - Install HappyHorse Video Generation Skill:**
+**Example - Install Video Generation Skill:**
 ```bash
 cp -r awsome-cloud-skills/skills/happy-horse-cli ~/.qoder/skills/
 ```
@@ -81,7 +80,7 @@ git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/alibaba-cloud-cli ~/.qoder/skills/
 ```
 
-**Learn More:** [Alibaba Cloud CLI Skill](skills/alibaba-cloud-cli/SKILL.md)
+**Learn More:** [Alibaba Cloud CLI SKILL.md](skills/alibaba-cloud-cli/SKILL.md)
 
 ---
 
@@ -130,68 +129,6 @@ cp -r awsome-cloud-skills/skills/ai-movie-prompt-optimizer ~/.qoder/skills/
 
 **Learn More:** [Prompt Optimizer SKILL.md](skills/ai-movie-prompt-optimizer/SKILL.md)
 
----
-
-### 🔍 DingDoc Knowledge Search Skill
-
-**Directory:** `skills/dingdoc_knowledge_search/`
-
-Intelligent search for DingTalk knowledge base with intent recognition and weighted filtering.
-
-**Core Features:**
-- 🧠 Intent recognition: Identifies core entities and operation conditions
-- 🎯 Weighted keyword strategy: Distinguishes primary and secondary keywords
-- 🔎 Smart filtering: Search core terms first, then filter with conditions
-- 📊 Relevance scoring: Multi-dimensional scoring for accuracy
-- 📝 Auto-save: Automatically saves results as Markdown when > 10 docs
-- 🛡️ Environment check: Auto-detects MCP Server installation
-
-**Version:** V3.0.0 (Latest)
-**Accuracy:** 90%+ (Improved from 70% in V2)
-
-**Installation:**
-```bash
-git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
-cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
-```
-
-**Learn More:** [DingDoc Skill README](skills/dingdoc_knowledge_search/README.md)
-
----
-
-### 📊 Bailian Report Query Skill
-
-**Directory:** `skills/bailian-report-query/`
-
-Query Bailian platform report data through ChatBI Open API for model usage metrics and statistics.
-
-**Core Features:**
-- 📈 Model invocation metrics (token usage)
-- 📊 Invocation counts, success rates, status code distribution
-- 🔍 Filter and aggregate by user, model, time dimensions
-- 📉 Success rate trends, throttling analysis, gateway statistics
-- ⚡ Async query with automatic session management
-
-**Supported Reports:**
-- Report 1: User Model Invocation Metrics (pageId=1315847)
-- Report 2: User Model Invocation Counts - Daily (pageId=1706516)
-
-**Installation:**
-```bash
-git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
-cp -r awsome-cloud-skills/skills/bailian-report-query ~/.qoder/skills/
-```
-
-**Learn More:** [Bailian Report Skill README](skills/bailian-report-query/README.md)
-
----
-
-### Coming Soon
-
-- 🟦 Azure Cloud CLI Skill (In Development)
-- 🟧 AWS Cloud CLI Skill (Planned)
-- 🟩 Google Cloud CLI Skill (Planned)
-
 <br/>
 
 ## Project Structure
@@ -208,19 +145,9 @@ awsome-cloud-skills/
 │   │   ├── SKILL.md
 │   │   ├── references/              # Reference documentation
 │   │   └── scripts/                 # Video generation scripts
-│   ├── ai-movie-prompt-optimizer/   # AI video Prompt optimization
-│   │   ├── SKILL.md
-│   │   └── references/              # Optimization tips & dubbing guide
-│   ├── dingdoc_knowledge_search/    # DingTalk knowledge search
-│   │   ├── SKILL.md
-│   │   ├── README.md
-│   │   ├── config.json
-│   │   └── examples.md
-│   └── bailian-report-query/        # Bailian platform reports
+│   └── ai-movie-prompt-optimizer/   # AI video Prompt optimization
 │       ├── SKILL.md
-│       ├── README.md
-│       ├── config.yaml
-│       └── scripts/                 # Query scripts
+│       └── references/              # Optimization tips & dubbing guide
 ├── README.md                        # Project overview (English)
 ├── README_ZH.md                     # Project overview (Chinese)
 └── LICENSE                          # Apache 2.0 License

@@ -16,14 +16,13 @@
 
 ## 什么是 Awesome Cloud Skills？
 
-专为 AI 编程助手设计的**云服务与生产力工具技能集合**。本项目将云厂商 CLI 操作、知识库搜索、AI 视频生成与 Prompt 优化等功能整理成标准化的技能格式。
+专为 AI 编程助手设计的**云服务与生产力工具技能集合**。本项目将云厂商 CLI 操作、AI 视频生成与 Prompt 优化等功能整理成标准化的技能格式。
 
 **核心特性：**
 - 📦 标准化技能格式，兼容多种 AI IDE
 - 🔄 自动同步机制，保持技能最新
 - 📚 每个技能包含完整的参考文档
 - 🛠️ 开箱即用的操作脚本
-- 🎯 智能意图识别和精准过滤
 
 <br/>
 
@@ -44,7 +43,7 @@ cp -r awsome-cloud-skills/skills/<skill-name> ~/.qoder/skills/
 cp -r awsome-cloud-skills/skills/alibaba-cloud-cli ~/.qoder/skills/
 ```
 
-**示例 - 安装 HappyHorse 视频生成技能：**
+**示例 - 安装视频生成技能：**
 ```bash
 cp -r awsome-cloud-skills/skills/happy-horse-cli ~/.qoder/skills/
 ```
@@ -130,68 +129,6 @@ cp -r awsome-cloud-skills/skills/ai-movie-prompt-optimizer ~/.qoder/skills/
 
 **了解更多：** [Prompt 优化 SKILL.md](skills/ai-movie-prompt-optimizer/SKILL.md)
 
----
-
-### 🔍 钉钉知识库智能检索技能
-
-**目录：** `skills/dingdoc_knowledge_search/`
-
-智能搜索钉钉知识库文档，通过意图识别和权重过滤提升准确率。
-
-**核心功能：**
-- 🧠 意图识别：自动识别核心实体和操作条件
-- 🎯 权重关键词策略：区分主次关键词，避免无效聚合
-- 🔎 智能过滤搜索：先搜核心词，再用条件词过滤
-- 📊 相关性评分：多维度评分提升准确率
-- 📝 自动保存：结果超过 10 篇时自动保存为 Markdown
-- 🛡️ 环境检查：自动检测 MCP Server 安装状态
-
-**版本：** V3.0.0（最新）
-**准确率：** 90%+（从 V2 的 70% 提升）
-
-**安装：**
-```bash
-git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
-cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
-```
-
-**了解更多：** [钉钉知识库技能 README](skills/dingdoc_knowledge_search/README.md)
-
----
-
-### 📊 百炼平台报表查询技能
-
-**目录：** `skills/bailian-report-query/`
-
-通过 ChatBI 开放 API 查询百炼平台报表数据，获取模型用量指标和统计信息。
-
-**核心功能：**
-- 📈 模型调用量统计（token 用量）
-- 📊 调用次数、成功率、状态码分布
-- 🔍 按用户、模型、时间维度筛选和聚合
-- 📉 成功率趋势、限流情况、网关统计
-- ⚡ 异步查询，自动会话管理
-
-**支持的报表：**
-- 报表 1：用户模型调用计量（pageId=1315847）
-- 报表 2：用户模型调用次数-日（pageId=1706516）
-
-**安装：**
-```bash
-git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
-cp -r awsome-cloud-skills/skills/bailian-report-query ~/.qoder/skills/
-```
-
-**了解更多：** [百炼报表技能 README](skills/bailian-report-query/README.md)
-
----
-
-### 即将推出
-
-- 🟦 Azure Cloud CLI 技能（开发中）
-- 🟧 AWS Cloud CLI 技能（计划中）
-- 🟩 Google Cloud CLI 技能（计划中）
-
 <br/>
 
 ## 项目结构
@@ -208,19 +145,9 @@ awsome-cloud-skills/
 │   │   ├── SKILL.md
 │   │   ├── references/              # 参考文档
 │   │   └── scripts/                 # 视频生成脚本
-│   ├── ai-movie-prompt-optimizer/   # AI 视频 Prompt 优化
-│   │   ├── SKILL.md
-│   │   └── references/              # 优化技巧与配音指南
-│   ├── dingdoc_knowledge_search/    # 钉钉知识库搜索
-│   │   ├── SKILL.md
-│   │   ├── README.md
-│   │   ├── config.json
-│   │   └── examples.md
-│   └── bailian-report-query/        # 百炼平台报表查询
+│   └── ai-movie-prompt-optimizer/   # AI 视频 Prompt 优化
 │       ├── SKILL.md
-│       ├── README.md
-│       ├── config.yaml
-│       └── scripts/                 # 查询脚本
+│       └── references/              # 优化技巧与配音指南
 ├── README.md                        # 项目概览（英文）
 ├── README_ZH.md                     # 项目概览（中文）
 └── LICENSE                          # Apache 2.0 许可证
