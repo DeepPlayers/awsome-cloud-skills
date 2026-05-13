@@ -16,7 +16,7 @@
 
 ## 什么是 Awesome Cloud Skills？
 
-专为 AI 编程助手设计的**云服务与生产力工具技能集合**。本项目将云厂商 CLI 操作、知识库搜索等功能整理成标准化的技能格式。
+专为 AI 编程助手设计的**云服务与生产力工具技能集合**。本项目将云厂商 CLI 操作、知识库搜索、AI 视频生成与 Prompt 优化等功能整理成标准化的技能格式。
 
 **核心特性：**
 - 📦 标准化技能格式，兼容多种 AI IDE
@@ -39,14 +39,14 @@ git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/<skill-name> ~/.qoder/skills/
 ```
 
-**示例 - 安装阿里云技能：**
+**示例 - 安装阿里云 CLI 技能：**
 ```bash
-cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
+cp -r awsome-cloud-skills/skills/alibaba-cloud-cli ~/.qoder/skills/
 ```
 
-**示例 - 安装钉钉知识库技能：**
+**示例 - 安装 HappyHorse 视频生成技能：**
 ```bash
-cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
+cp -r awsome-cloud-skills/skills/happy-horse-cli ~/.qoder/skills/
 ```
 
 **支持的 AI IDE：**
@@ -64,7 +64,7 @@ cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 
 ### ☁️ 阿里云 CLI 技能
 
-**目录：** `skills/alibaba-cloud-skill/`
+**目录：** `skills/alibaba-cloud-cli/`
 
 完整的阿里云 CLI 操作 SOP，提供常见云资源管理的标准化工作流程。
 
@@ -77,12 +77,58 @@ cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 
 **安装：**
 ```bash
-# 克隆并复制到你的 AI IDE
 git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
-cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
+cp -r awsome-cloud-skills/skills/alibaba-cloud-cli ~/.qoder/skills/
 ```
 
-**了解更多：** [阿里云技能 README](skills/alibaba-cloud-skill/README.md)
+**了解更多：** [阿里云技能 SKILL.md](skills/alibaba-cloud-cli/SKILL.md)
+
+---
+
+### 🎬 HappyHorse 视频生成技能
+
+**目录：** `skills/happy-horse-cli/`
+
+基于阿里云百炼平台 happyhorse-1.0 系列模型的 AI 视频生成工具，支持五种生成模式。
+
+**核心功能：**
+- 🖼️ 图生视频（i2v）：以图片首帧生成视频
+- 📝 文生视频（t2v）：纯文字 Prompt 生成视频
+- 👥 参考生视频（r2v）：多图参考保持角色一致性
+- ✂️ 视频编辑（edit）：对已有视频按指令修改
+- 📦 批量并发生成（batch）：一次提交多个任务，最大并发 10
+
+**安装：**
+```bash
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/happy-horse-cli ~/.qoder/skills/
+```
+
+**了解更多：** [HappyHorse SKILL.md](skills/happy-horse-cli/SKILL.md)
+
+---
+
+### 🎨 AI 视频 Prompt 优化技能
+
+**目录：** `skills/ai-movie-prompt-optimizer/`
+
+AI 视频场景 Prompt 优化专家，提供全场景提示词优化与电影级质感提升。
+
+**核心功能：**
+- 🔧 正向排除法：规避 Prompt 污染
+- 👁️ 视觉代偿法：替代抽象动作描述
+- 🎥 三级镜头控制：景别/角度/焦点递进
+- 🏷️ 歧义词替换：用具象描述替代风格标签
+- 🎬 电影级质感词汇库：画质/光影/色彩速查
+- 🎙️ AI 配音三轴声学控制优化
+
+**安装：**
+```bash
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/ai-movie-prompt-optimizer ~/.qoder/skills/
+```
+
+**了解更多：** [Prompt 优化 SKILL.md](skills/ai-movie-prompt-optimizer/SKILL.md)
 
 ---
 
@@ -105,7 +151,6 @@ cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
 
 **安装：**
 ```bash
-# 克隆并复制到你的 AI IDE
 git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 ```
@@ -133,7 +178,6 @@ cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 
 **安装：**
 ```bash
-# 克隆并复制到你的 AI IDE
 git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/bailian-report-query ~/.qoder/skills/
 ```
@@ -154,26 +198,32 @@ cp -r awsome-cloud-skills/skills/bailian-report-query ~/.qoder/skills/
 
 ```
 awsome-cloud-skills/
-├── skills/                      # 所有可用技能
-│   ├── alibaba-cloud-skill/     # 阿里云 CLI 操作
+├── skills/                          # 所有可用技能
+│   ├── alibaba-cloud-cli/           # 阿里云 CLI 操作
 │   │   ├── SKILL.md
-│   │   ├── README.md
-│   │   ├── diagrams/            # SOP 工作流程图
-│   │   ├── references/          # 参考文档
-│   │   └── scripts/             # 实用脚本
-│   ├── dingdoc_knowledge_search/  # 钉钉知识库搜索
+│   │   ├── diagrams/                # SOP 工作流程图
+│   │   ├── references/              # 参考文档
+│   │   └── scripts/                 # 实用脚本
+│   ├── happy-horse-cli/             # HappyHorse 视频生成
+│   │   ├── SKILL.md
+│   │   ├── references/              # 参考文档
+│   │   └── scripts/                 # 视频生成脚本
+│   ├── ai-movie-prompt-optimizer/   # AI 视频 Prompt 优化
+│   │   ├── SKILL.md
+│   │   └── references/              # 优化技巧与配音指南
+│   ├── dingdoc_knowledge_search/    # 钉钉知识库搜索
 │   │   ├── SKILL.md
 │   │   ├── README.md
 │   │   ├── config.json
 │   │   └── examples.md
-│   └── bailian-report-query/    # 百炼平台报表查询
+│   └── bailian-report-query/        # 百炼平台报表查询
 │       ├── SKILL.md
 │       ├── README.md
 │       ├── config.yaml
-│       └── scripts/             # 查询脚本
-├── README.md                    # 项目概览（英文）
-├── README_ZH.md                 # 项目概览（中文）
-└── LICENSE                      # Apache 2.0 许可证
+│       └── scripts/                 # 查询脚本
+├── README.md                        # 项目概览（英文）
+├── README_ZH.md                     # 项目概览（中文）
+└── LICENSE                          # Apache 2.0 许可证
 ```
 
 <br/>
@@ -191,8 +241,8 @@ awsome-cloud-skills/
 
 ### 贡献指南
 
-1. 参考现有的 [SOP 模板](skills/alibaba-cloud-skill/diagrams/) 了解格式
-2. 遵循标准技能结构（SKILL.md + README.md）
+1. 参考现有的 [SOP 模板](skills/alibaba-cloud-cli/diagrams/) 了解格式
+2. 遵循标准技能结构（SKILL.md + 参考文档）
 3. 尽可能包含参考文档和示例
 4. 通过 Pull Request 提交
 

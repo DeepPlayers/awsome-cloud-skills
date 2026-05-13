@@ -77,7 +77,6 @@ parse_args() {
             --system-disk-category) SYSTEM_DISK_CATEGORY="$2"; shift 2 ;;
             --instance-charge-type) INSTANCE_CHARGE_TYPE="$2"; shift 2 ;;
             --internet-max-bandwidth-out) INTERNET_MAX_BANDWIDTH_OUT="$2"; shift 2 ;;
-            --password) PASSWORD="$2"; shift 2 ;;
             --key-pair) KEY_PAIR="$2"; shift 2 ;;
             --profile) PROFILE="$2"; shift 2 ;;
             --dryrun) DRYRUN=true; shift ;;

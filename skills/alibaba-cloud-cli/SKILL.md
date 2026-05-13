@@ -8,123 +8,6 @@ description: |
 
 This skill provides complete operation SOP for Alibaba Cloud CLI, including installation/configuration and operation scripts for major cloud products.
 
-## ⚠️ Must Read Before Execution: Repository Sync Check
-
-**Before executing any task, you must check and sync remote repository updates:**
-
-Remote repository: `http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills.git`
-
-### Sync Flow
-
-```bash
-# 1. Navigate to the project directory (clone first if not already)
-# Clone repository (first-time use)
-git clone http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills.git
-cd awsome-cloud-skills
-
-# Or navigate to existing project directory
-cd <your-project-path>
-
-# 2. Check if remote has updates
-git fetch origin
-
-# 3. View differences between local and remote
-git status
-
-# 4. If remote has updates and no conflicts, execute pull
-git pull origin main
-# Or: git pull origin master (based on actual branch name)
-```
-
-### Sync Rules
-
-| Situation | Handling |
-|-----------|----------|
-| Local is not a git repository | Prompt user to clone the project |
-| Local is git repo but remote not configured | Auto-add remote repository origin |
-| Remote URL doesn't match expected | Auto-update remote repository URL |
-| Remote has updates, local unchanged | Execute `git pull` to sync |
-| Remote has updates, local modified but no conflicts | Execute `git pull` to sync |
-| Remote has updates, conflicts exist | **Skip pull**, notify user to resolve manually |
-| Remote has no updates | No action needed, continue task |
-
-### Conflict Handling Notice
-
-If conflicts are detected, **do NOT auto-pull**. Notify the user:
-
-> ⚠️ Conflicts detected between local and remote repository. Auto-sync skipped. Please resolve conflicts manually with `git pull`, or contact administrator.
-
-### Sync Check Script Example
-
-```bash
-#!/bin/bash
-# sync-repo.sh - Repository sync check script
-
-REMOTE_URL="http://gitlab.alibaba-inc.com/ez-tam-ai/awsome-cloud-skills.git"
-
-# Get script directory, locate SKILL.md directory
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-SKILL_DIR="$(dirname "$(dirname "$SCRIPT_DIR")")"  # alibaba-cloud-skill directory
-
-# Find git repo root from SKILL directory (max 2 levels up)
-REPO_DIR=""
-SEARCH_DIR="$SKILL_DIR"
-MAX_DEPTH=2
-DEPTH=0
-while [ "$SEARCH_DIR" != "/" ] && [ $DEPTH -lt $MAX_DEPTH ]; do
-    [ -d "$SEARCH_DIR/.git" ] && { REPO_DIR="$SEARCH_DIR"; break; }
-    SEARCH_DIR="$(dirname "$SEARCH_DIR")"
-    DEPTH=$((DEPTH + 1))
-done
-
-if [ -z "$REPO_DIR" ]; then
-    echo "Error: SKILL directory is not a git repository. Please clone the project:"
-    echo "  git clone $REMOTE_URL"
-    exit 1
-fi
-
-cd "$REPO_DIR" || exit 1
-
-# Check if remote repository is configured
-ORIGIN_URL=$(git remote get-url origin 2>/dev/null || echo "")
-
-if [ -z "$ORIGIN_URL" ]; then
-    echo "Remote not configured, adding..."
-    git remote add origin "$REMOTE_URL"
-elif [ "$ORIGIN_URL" != "$REMOTE_URL" ]; then
-    echo "Remote URL mismatch, updating..."
-    git remote set-url origin "$REMOTE_URL"
-fi
-
-# Fetch remote update info
-git fetch origin 2>/dev/null
-
-# Check for updates
-LOCAL=$(git rev-parse HEAD)
-REMOTE=$(git rev-parse @{u} 2>/dev/null || echo "")
-
-if [ -z "$REMOTE" ]; then
-    echo "Upstream branch not set. Please configure remote tracking."
-    exit 0
-fi
-
-if [ "$LOCAL" = "$REMOTE" ]; then
-    echo "Local is up-to-date. No sync needed."
-    exit 0
-fi
-
-# Check for conflicts
-if git diff --quiet && git diff --cached --quiet; then
-    echo "Remote has updates, syncing..."
-    git pull --no-edit origin HEAD && echo "Sync successful" || echo "Sync failed. Please handle manually."
-else
-    echo "⚠️ Local uncommitted changes detected. Possible conflicts."
-    echo "Please run manually: git stash && git pull && git stash pop"
-fi
-```
-
----
-
 ## ⚠️ Must Read Before Execution: User Confirmation for Write Operations
 
 **Before executing any command that modifies Alibaba Cloud resources, you MUST present the command and its purpose to the user for final confirmation.**
@@ -629,7 +512,6 @@ scripts/
 │   ├── download.sh
 │   └── sync.sh
 └── utils/
-    ├── sync-repo.sh     # Repository sync check (execute first)
     ├── output-format.sh
     ├── waiter.sh
     └── error-check.sh

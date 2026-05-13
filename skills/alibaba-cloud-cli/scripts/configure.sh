@@ -195,8 +195,8 @@ usage() {
   interactive                 交互式配置
 
 示例:
-  # 配置AK凭证
-  $0 ak default LTAIxxx secret123 cn-hangzhou
+  # 配置AK凭证(下面{}改成您的实际内容)
+  $0 ak default {ACCESS_KEY_ID} {ACCESS_KEY_SECRET} cn-hangzhou
 
   # 切换配置
   $0 switch prod-profile

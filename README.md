@@ -16,7 +16,7 @@
 
 ## What is Awesome Cloud Skills?
 
-A collection of **AI agent skills** for cloud services and productivity tools. This project provides standardized skill formats for cloud CLI operations, knowledge base search, and more.
+A collection of **AI agent skills** for cloud services and productivity tools. This project provides standardized skill formats for cloud CLI operations, knowledge base search, AI video generation, and Prompt optimization.
 
 **Key Features:**
 - 📦 Standardized skill format compatible with multiple AI IDEs
@@ -39,14 +39,14 @@ git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/<skill-name> ~/.qoder/skills/
 ```
 
-**Example - Install Alibaba Cloud Skill:**
+**Example - Install Alibaba Cloud CLI Skill:**
 ```bash
-cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
+cp -r awsome-cloud-skills/skills/alibaba-cloud-cli ~/.qoder/skills/
 ```
 
-**Example - Install DingDoc Knowledge Search Skill:**
+**Example - Install HappyHorse Video Generation Skill:**
 ```bash
-cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
+cp -r awsome-cloud-skills/skills/happy-horse-cli ~/.qoder/skills/
 ```
 
 **Supported AI IDEs:**
@@ -64,7 +64,7 @@ cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 
 ### ☁️ Alibaba Cloud CLI Skill
 
-**Directory:** `skills/alibaba-cloud-skill/`
+**Directory:** `skills/alibaba-cloud-cli/`
 
 Complete operation SOP for Alibaba Cloud CLI, providing standardized workflows for common cloud resource management tasks.
 
@@ -77,12 +77,58 @@ Complete operation SOP for Alibaba Cloud CLI, providing standardized workflows f
 
 **Installation:**
 ```bash
-# Clone and copy to your AI IDE
 git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
-cp -r awsome-cloud-skills/skills/alibaba-cloud-skill ~/.qoder/skills/
+cp -r awsome-cloud-skills/skills/alibaba-cloud-cli ~/.qoder/skills/
 ```
 
-**Learn More:** [Alibaba Cloud Skill README](skills/alibaba-cloud-skill/README.md)
+**Learn More:** [Alibaba Cloud CLI Skill](skills/alibaba-cloud-cli/SKILL.md)
+
+---
+
+### 🎬 HappyHorse Video Generation Skill
+
+**Directory:** `skills/happy-horse-cli/`
+
+AI video generation tool based on Alibaba Cloud Bailian platform's happyhorse-1.0 model series, supporting five generation modes.
+
+**Core Features:**
+- 🖼️ Image-to-Video (i2v): Generate video from a starting image
+- 📝 Text-to-Video (t2v): Generate video from text prompt only
+- 👥 Reference-to-Video (r2v): Multi-image reference for character consistency
+- ✂️ Video Edit: Modify existing video based on instructions
+- 📦 Batch Generation: Submit multiple tasks concurrently, max concurrency 10
+
+**Installation:**
+```bash
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/happy-horse-cli ~/.qoder/skills/
+```
+
+**Learn More:** [HappyHorse SKILL.md](skills/happy-horse-cli/SKILL.md)
+
+---
+
+### 🎨 AI Movie Prompt Optimizer Skill
+
+**Directory:** `skills/ai-movie-prompt-optimizer/`
+
+AI video Prompt optimization expert, providing full-scenario prompt optimization and cinematic quality enhancement.
+
+**Core Features:**
+- 🔧 Positive Exclusion: Avoid Prompt contamination
+- 👁️ Visual Compensation: Replace abstract action descriptions
+- 🎥 Three-Level Camera Control: Shot size/angle/focus progression
+- 🏷️ Ambiguous Word Replacement: Replace style tags with concrete descriptions
+- 🎬 Cinematic Quality Vocabulary: Image quality/lighting/color reference
+- 🎙️ AI Dubbing Acoustic Control: Three-axis parameter optimization
+
+**Installation:**
+```bash
+git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
+cp -r awsome-cloud-skills/skills/ai-movie-prompt-optimizer ~/.qoder/skills/
+```
+
+**Learn More:** [Prompt Optimizer SKILL.md](skills/ai-movie-prompt-optimizer/SKILL.md)
 
 ---
 
@@ -105,7 +151,6 @@ Intelligent search for DingTalk knowledge base with intent recognition and weigh
 
 **Installation:**
 ```bash
-# Clone and copy to your AI IDE
 git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/dingdoc_knowledge_search ~/.qoder/skills/
 ```
@@ -133,7 +178,6 @@ Query Bailian platform report data through ChatBI Open API for model usage metri
 
 **Installation:**
 ```bash
-# Clone and copy to your AI IDE
 git clone git@gitlab.alibaba-inc.com:ez-tam-ai/awsome-cloud-skills.git
 cp -r awsome-cloud-skills/skills/bailian-report-query ~/.qoder/skills/
 ```
@@ -154,26 +198,32 @@ cp -r awsome-cloud-skills/skills/bailian-report-query ~/.qoder/skills/
 
 ```
 awsome-cloud-skills/
-├── skills/                      # All available skills
-│   ├── alibaba-cloud-skill/     # Alibaba Cloud CLI operations
+├── skills/                          # All available skills
+│   ├── alibaba-cloud-cli/           # Alibaba Cloud CLI operations
 │   │   ├── SKILL.md
-│   │   ├── README.md
-│   │   ├── diagrams/            # SOP workflow diagrams
-│   │   ├── references/          # Reference documentation
-│   │   └── scripts/             # Utility scripts
-│   ├── dingdoc_knowledge_search/  # DingTalk knowledge search
+│   │   ├── diagrams/                # SOP workflow diagrams
+│   │   ├── references/              # Reference documentation
+│   │   └── scripts/                 # Utility scripts
+│   ├── happy-horse-cli/             # HappyHorse video generation
+│   │   ├── SKILL.md
+│   │   ├── references/              # Reference documentation
+│   │   └── scripts/                 # Video generation scripts
+│   ├── ai-movie-prompt-optimizer/   # AI video Prompt optimization
+│   │   ├── SKILL.md
+│   │   └── references/              # Optimization tips & dubbing guide
+│   ├── dingdoc_knowledge_search/    # DingTalk knowledge search
 │   │   ├── SKILL.md
 │   │   ├── README.md
 │   │   ├── config.json
 │   │   └── examples.md
-│   └── bailian-report-query/    # Bailian platform reports
+│   └── bailian-report-query/        # Bailian platform reports
 │       ├── SKILL.md
 │       ├── README.md
 │       ├── config.yaml
-│       └── scripts/             # Query scripts
-├── README.md                    # Project overview (English)
-├── README_ZH.md                 # Project overview (Chinese)
-└── LICENSE                      # Apache 2.0 License
+│       └── scripts/                 # Query scripts
+├── README.md                        # Project overview (English)
+├── README_ZH.md                     # Project overview (Chinese)
+└── LICENSE                          # Apache 2.0 License
 ```
 
 <br/>
@@ -191,8 +241,8 @@ We welcome contributions and feedback!
 
 ### Contribution Guidelines
 
-1. Refer to existing [SOP templates](skills/alibaba-cloud-skill/diagrams/) for format
-2. Follow the standard skill structure (SKILL.md + README.md)
+1. Refer to existing [SOP templates](skills/alibaba-cloud-cli/diagrams/) for format
+2. Follow the standard skill structure (SKILL.md + reference docs)
 3. Include reference documentation and examples when possible
 4. Submit via Pull Request
 
