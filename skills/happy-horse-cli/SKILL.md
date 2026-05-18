@@ -1,6 +1,6 @@
 ---
 name: happy-horse-cli
-description: HappyHorse 视频生成工具，基于阿里云百炼平台 happyhorse-1.0 系列模型，支持图生视频(i2v)、文生视频(t2v)、参考生视频(r2v)、视频编辑(edit)和批量并发生成(batch)五种模式。batch 模式支持同时生成多个视频，默认最大并发数 10。自动处理本地媒体文件上传（通过 oss2 SDK 上传到 OSS）、异步任务轮询和视频下载。配置一次，永久使用（API Key 和 OSS 信息保存到 ~/.happy-horse.env）。Use when user asks to generate video with HappyHorse, create image-to-video, text-to-video, reference-to-video, batch video generation, or edit videos using 百炼 platform. Do NOT use for: prompt 文案优化（请使用 ai-movie-prompt-optimizer skill）、非 HappyHorse 模型的视频生成、视频剪辑/合并等后期处理。局限性：视频生成为异步任务，通常耗时 1-5 分钟；本地文件上传依赖 oss2 和 OSS 配置；不支持视频拼接和后期剪辑。
+description: HappyHorse 视频生成工具，基于阿里云百炼平台 happyhorse-1.0 系列模型，支持图生视频(i2v)、文生视频(t2v)、参考生视频(r2v)、视频编辑(edit)和批量并发生成(batch)五种模式。batch 模式支持同时生成多个视频，默认最大并发数 10。自动处理本地媒体文件上传（通过 oss2 SDK 上传到 OSS）、异步任务轮询和视频下载。配置一次，永久使用（API Key 和 OSS 信息保存到 ~/.happy-horse.env）。Use when user asks to generate video with HappyHorse, create image-to-video, text-to-video, reference-to-video, batch video generation, or edit videos using 百炼 platform. Do NOT use for prompt 文案优化（请使用 ai-movie-prompt-optimizer skill）、非 HappyHorse 模型的视频生成、视频剪辑/合并等后期处理。局限性：视频生成为异步任务，通常耗时 1-5 分钟；本地文件上传依赖 oss2 和 OSS 配置；不支持视频拼接和后期剪辑。
 hooks:
   PreToolUse:
     - matcher: "(bash.*happyhorse\\.sh|python3.*happyhorse\\.py)"
